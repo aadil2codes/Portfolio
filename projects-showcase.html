@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aadil Hussain | Projects Showcase</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Prevent default document margins and scrollbars since it's an embedded iframe */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: #0A0A0A;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Custom scrollbars inside the modal drawer */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3A3A3A;
+    }
+
+    /* Support custom transitions exactly as user classes describe */
+    .transition-custom-bezier {
+      transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Map transition for user hover scaling class */
+    .group:hover .origin-center {
+      transform: scale(1.06);
+      transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Custom slide-in animation for modal side drawer */
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-in.slide-in-from-right {
+      animation: slideInFromRight 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    /* Transition classes for smooth drawer */
+    .drawer-transition {
+      transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .backdrop-transition {
+      transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  </style>
+</head>
+<body class="selection:bg-[#FF7A00] selection:text-black">
+
+  <!-- React Root Container -->
+  <div id="root"></div>
+
+  <!-- Babel Standalone for React JSX compilation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Babel React Script Module -->
+  <script type="text/babel" data-type="module">
+    import React, { useState, useRef, useEffect } from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+    import { 
+      ExternalLink, 
+      ArrowUpRight, 
+      Layers, 
+      Sparkles, 
+      Check, 
+      Layout, 
+      Smartphone, 
+      BarChart, 
+      X, 
+      Terminal, 
+      Compass, 
+      Tv,
+      Heart,
+      Share2
+    } from 'https://esm.sh/lucide-react@0.344.0';
+
+    // Project Mockup 1: CampusCircle (Futuristic Dark Student Network UI)
+    const CampusCircleMockup = () => (
+      <div className="w-full h-full bg-[#0a0c10] rounded-t-xl overflow-hidden relative p-6 flex flex-col justify-between border-b border-zinc-800 group-hover:border-purple-500/30 transition-all duration-300">
+        {/* Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute inset-0 bg-radial-at-t from-purple-500/10 via-transparent to-transparent opacity-60" />
+        
+
+
+        {/* Centerpiece Content */}
+        <div className="my-auto relative z-10 text-center py-4">
+          <div className="inline-block px-2.5 py-0.5 bg-purple-500/10 border border-purple-500/20 text-[10px] text-purple-400 font-mono rounded-full mb-3 uppercase tracking-wider animate-pulse">
+            STUDENT NETWORK
+          </div>
+          <h3 className="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400 leading-tight uppercase">
+            CONNECT STUDENTS<br />BEYOND CAMPUS
+          </h3>
+          <p className="text-xs text-zinc-500 max-w-[280px] mx-auto mt-2">
+            A student networking platform where learners across India connect, collaborate, share opportunities, and grow together.
+          </p>
+        </div>
+
+        {/* Bottom Widgets */}
+        <div className="flex gap-3 relative z-10 mt-2">
+          <div className="flex-1 bg-zinc-900/60 backdrop-blur-md border border-zinc-800/80 rounded-lg p-3 text-left">
+            <div className="text-[10px] text-zinc-500">COMMUNITIES</div>
+            <div className="text-md font-bold text-white mt-1">Growing</div>
+          </div>
+          <div className="flex-1 bg-zinc-900/60 backdrop-blur-md border border-zinc-800/80 rounded-lg p-3 text-left flex items-end justify-between">
+            <div>
+              <div className="text-[10px] text-zinc-500 font-mono">STUDENTS</div>
+              <div className="text-md font-bold text-white mt-1">Active</div>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center">
+              <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // Project Mockup 2: JEE College Predictor & AI Counseling Assistant
+    const CollegePredictorMockup = () => (
+      <div className="w-full h-full bg-[#0b0813] rounded-t-xl overflow-hidden relative p-4 flex flex-col justify-between border-b border-zinc-800 group-hover:border-pink-500/30 transition-all duration-300">
+        {/* Glow ambient background */}
+        <div className="absolute inset-0 bg-radial-at-t from-purple-600/10 via-transparent to-transparent opacity-70" />
+        <div className="absolute inset-0 bg-radial-at-br from-pink-500/10 via-transparent to-transparent opacity-50" />
+        
+
+
+        {/* Small Header Branding */}
+        <div className="flex justify-between items-center relative z-10 mb-1 px-1">
+          <div className="text-[10px] font-bold tracking-tight text-white flex items-center gap-1">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">College Predictor</span>
+            <span className="text-zinc-500 font-normal text-[8px] font-mono">by CampusCipher</span>
+          </div>
+          <div className="px-1.5 py-0.5 bg-purple-500/10 border border-purple-500/20 text-[8px] text-purple-300 font-mono rounded">
+            INSTALL PWA
+          </div>
+        </div>
+
+        {/* Mini-Dashboard Content Panel */}
+        <div className="flex-grow bg-[#130f22]/60 border border-zinc-800/80 rounded-lg p-2.5 relative z-10 flex flex-col justify-between shadow-inner">
+          {/* Predictor Tabs Row */}
+          <div className="flex gap-1.5 mb-2">
+            <div className="text-[8px] px-2 py-0.5 rounded bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium shadow-sm">
+              CSAB Predictor
+            </div>
+            <div className="text-[8px] px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+              JoSAA Predictor
+            </div>
+            <div className="text-[8px] px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 flex items-center gap-1 ml-auto">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
+              AI Assistant
+            </div>
+          </div>
+
+          {/* Form Fields Grid */}
+          <div className="grid grid-cols-2 gap-1.5 text-left mb-2">
+            <div>
+              <div className="text-[7px] text-zinc-500 uppercase tracking-wider font-mono">Select Round</div>
+              <div className="bg-[#0b0813] border border-zinc-800 rounded p-1 text-[8px] text-zinc-300 flex justify-between items-center">
+                <span>Round 3</span>
+                <span className="text-[6px] text-zinc-600">▼</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-[7px] text-zinc-500 uppercase tracking-wider font-mono">JEE Main Rank</div>
+              <div className="bg-[#0b0813] border border-zinc-800 rounded p-1 text-[8px] text-zinc-400">
+                e.g. 25000
+              </div>
+            </div>
+            <div>
+              <div className="text-[7px] text-zinc-500 uppercase tracking-wider font-mono">Category</div>
+              <div className="bg-[#0b0813] border border-zinc-800 rounded p-1 text-[8px] text-zinc-300 flex justify-between items-center">
+                <span>OPEN / General</span>
+                <span className="text-[6px] text-zinc-600">▼</span>
+              </div>
+            </div>
+            <div>
+              <div className="text-[7px] text-zinc-500 uppercase tracking-wider font-mono">Gender</div>
+              <div className="bg-[#0b0813] border border-zinc-800 rounded p-1 text-[8px] text-zinc-300 flex justify-between items-center">
+                <span>Gender-Neutral</span>
+                <span className="text-[6px] text-zinc-600">▼</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="flex items-center justify-between gap-2 mt-auto">
+            <button className="flex-grow py-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded text-[8px] font-bold tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-1 shadow-md shadow-pink-500/10">
+              Discover Options
+            </button>
+            <div className="w-5 h-5 bg-gradient-to-tr from-purple-600 to-pink-600 rounded-full flex items-center justify-center shrink-0 cursor-pointer shadow shadow-pink-500/20">
+              <svg className="w-2.5 h-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer info */}
+        <div className="flex justify-between items-center relative z-10 mt-1 px-1 text-[7px] text-zinc-500 font-mono">
+          <span>DATA SOURCE: JoSAA/CSAB 2025</span>
+          <span className="flex items-center gap-1">
+            <span className="w-1 h-1 rounded-full bg-emerald-500" /> SYSTEM ONLINE
+          </span>
+        </div>
+      </div>
+    );
+
+    // Project Mockup 3: AttendNest (Smart Attendance Tracker PWA)
+    const AttendNestMockup = () => (
+      <div className="w-full h-full bg-[#030712] rounded-t-xl overflow-hidden relative p-4 flex flex-col justify-between border-b border-zinc-800 group-hover:border-sky-500/30 transition-all duration-300">
+        {/* Glow ambient background */}
+        <div className="absolute inset-0 bg-radial-at-t from-sky-600/10 via-transparent to-transparent opacity-70" />
+        <div className="absolute inset-0 bg-radial-at-bl from-teal-500/10 via-transparent to-transparent opacity-50" />
+        
+
+
+        {/* Small Header Branding */}
+        <div className="flex justify-between items-center relative z-10 mb-1 px-1">
+          <div className="text-[10px] font-bold tracking-tight text-white flex items-center gap-1">
+            <span className="text-sky-400">📅</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-300">AttendNest</span>
+            <span className="text-zinc-500 font-normal text-[8px] font-mono">PWA</span>
+          </div>
+          <div className="px-1.5 py-0.5 bg-sky-500/15 border border-sky-500/30 text-[7px] text-sky-300 font-mono rounded font-semibold uppercase tracking-wider animate-pulse">
+            Live Project
+          </div>
+        </div>
+
+        {/* Mini Student Dashboard */}
+        <div className="flex-grow bg-zinc-955/65 border border-zinc-900/80 rounded-lg p-2.5 relative z-10 flex gap-2 shadow-inner">
+          {/* Left panel: Radial ring progress for total percentage */}
+          <div className="w-[38%] bg-zinc-900/40 border border-zinc-850 rounded p-1.5 flex flex-col items-center justify-center">
+            <div className="relative w-11 h-11 flex items-center justify-center">
+              {/* SVG Ring */}
+              <svg className="w-full h-full transform -rotate-90">
+                <circle cx="22" cy="22" r="18" stroke="rgba(255,255,255,0.03)" strokeWidth="3" fill="transparent" />
+                <circle cx="22" cy="22" r="18" stroke="#0284c7" strokeWidth="3" fill="transparent" strokeDasharray="113" strokeDashoffset="15" />
+              </svg>
+              <span className="absolute text-[8px] font-extrabold text-white">86%</span>
+            </div>
+            <span className="text-[6px] text-zinc-500 font-mono mt-1 text-center leading-none">TOTAL ATTENDANCE</span>
+          </div>
+
+          {/* Right panel: Subject list */}
+          <div className="flex-grow flex flex-col justify-between gap-1 text-[8px]">
+            {/* Subject 1 */}
+            <div className="bg-zinc-900/60 border border-zinc-900 rounded p-1 px-1.5 flex justify-between items-center">
+              <div className="flex flex-col">
+                <span className="font-semibold text-zinc-300 leading-tight">Computer Prog.</span>
+                <span className="text-[6px] text-zinc-500">5 of 6 classes</span>
+              </div>
+              <span className="px-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-mono text-[7px]">83.3%</span>
+            </div>
+            {/* Subject 2 */}
+            <div className="bg-zinc-900/60 border border-zinc-900 rounded p-1 px-1.5 flex justify-between items-center">
+              <div className="flex flex-col">
+                <span className="font-semibold text-zinc-300 leading-tight">Chemistry</span>
+                <span className="text-[6px] text-zinc-500">3 of 4 classes</span>
+              </div>
+              <span className="px-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-mono text-[7px]">75.0%</span>
+            </div>
+            {/* Subject 3 */}
+            <div className="bg-zinc-900/60 border border-zinc-900 rounded p-1 px-1.5 flex justify-between items-center">
+              <div className="flex flex-col">
+                <span className="font-semibold text-zinc-300 leading-tight">Maths</span>
+                <span className="text-[6px] text-zinc-500">6 of 6 classes</span>
+              </div>
+              <span className="px-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-mono text-[7px]">100%</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Info Row */}
+        <div className="flex justify-between items-center relative z-10 mt-1 px-1 text-[7px] text-zinc-500 font-mono">
+          <span>YEAR: 2026</span>
+          <span className="flex items-center gap-1">
+            <span className="w-1 h-1 rounded-full bg-sky-400 animate-pulse" /> LOCAL STORAGE SYNCED
+          </span>
+        </div>
+      </div>
+    );
+
+    // Project Mockup 4: PlateRelay (Surplus Food Redistribution Network)
+    const PlateRelayMockup = () => (
+      <div className="w-full h-full bg-[#040d0a] rounded-t-xl overflow-hidden relative p-4 flex flex-col justify-between border-b border-zinc-800 group-hover:border-emerald-500/30 transition-all duration-300">
+        {/* Glow ambient background */}
+        <div className="absolute inset-0 bg-radial-at-t from-emerald-600/10 via-transparent to-transparent opacity-70" />
+        <div className="absolute inset-0 bg-radial-at-br from-teal-500/5 via-transparent to-transparent opacity-50" />
+        
+
+
+        {/* Small Header Branding */}
+        <div className="flex justify-between items-center relative z-10 mb-1 px-1">
+          <div className="text-[10px] font-bold tracking-tight text-white flex items-center gap-1">
+            <span className="text-emerald-400">♻️</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-300">PlateRelay</span>
+            <span className="text-zinc-500 font-normal text-[8px] font-mono">HACKATHON</span>
+          </div>
+          <div className="px-1.5 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-[7px] text-emerald-300 font-mono rounded font-semibold uppercase tracking-wider">
+            SOCIAL IMPACT
+          </div>
+        </div>
+
+        {/* Redistributor Board */}
+        <div className="flex-grow bg-zinc-950/65 border border-zinc-900/80 rounded-lg p-2.5 relative z-10 flex gap-2 shadow-inner">
+          {/* Left panel: Active Donation Cards */}
+          <div className="w-[50%] flex flex-col justify-between gap-1 text-[7px] text-left">
+            <div className="text-[6px] text-zinc-500 uppercase tracking-wider font-mono">Donations Nearby</div>
+            {/* Listing 1 */}
+            <div className="bg-zinc-900/40 border border-zinc-855 rounded p-1 flex flex-col gap-0.5 relative">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-zinc-200">Surplus Biryani (15kg)</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" title="Pending NGO Pickup" />
+              </div>
+              <span className="text-[5px] text-zinc-500 font-mono">From: Hotel Taj</span>
+            </div>
+            {/* Listing 2 */}
+            <div className="bg-zinc-900/40 border border-zinc-855 rounded p-1 flex flex-col gap-0.5 relative">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-zinc-200">Rotis & Curry (30 pl)</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Pickup Accepted" />
+              </div>
+              <span className="text-[5px] text-emerald-400 font-mono">Accepted: FeedIndia NGO</span>
+            </div>
+          </div>
+
+          {/* Right panel: Leaflet Map Interface Mockup */}
+          <div className="flex-grow bg-zinc-900/40 border border-zinc-855 rounded p-1.5 flex flex-col justify-between relative overflow-hidden">
+            {/* Map Grid Grid Lines */}
+            <div className="absolute inset-0 bg-[radial-gradient(#10b98115_1px,transparent_1px)] bg-[size:6px_6px] opacity-60" />
+            
+            {/* Map pins */}
+            <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-emerald-500 rounded-full border border-white animate-ping" />
+            <div className="absolute top-1/4 left-1/3 w-1.5 h-1.5 bg-emerald-500 rounded-full border border-white" />
+            
+            <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-yellow-500 rounded-full border border-white animate-pulse" />
+            <div className="absolute bottom-1/3 right-1/4 w-1.5 h-1.5 bg-yellow-500 rounded-full border border-white" />
+            
+            <div className="text-[6px] font-bold text-zinc-400 z-10 font-mono tracking-wider leading-none">
+              MAP ROUTING
+            </div>
+            <div className="text-[5px] text-zinc-500 z-10 font-mono mt-auto leading-none text-right">
+              📍 3 ACTIVE LISTS
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Info Row */}
+        {/* Footer Info Row */}
+        <div className="flex justify-between items-center relative z-10 mt-1 px-1 text-[7px] text-zinc-500 font-mono">
+          <span>SYS STATUS: Firebase Online</span>
+          <span className="flex items-center gap-1 text-emerald-400">
+            <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" /> 250 KG SAVED
+          </span>
+        </div>
+      </div>
+    );
+
+    // Project Mockup 5: SolarScope (Renewable Energy Estimator PWA)
+    const SolarScopeMockup = () => (
+      <div className="w-full h-full bg-[#020617] rounded-t-xl overflow-hidden relative p-4 flex flex-col justify-between border-b border-zinc-800 group-hover:border-sky-500/30 transition-all duration-300">
+        {/* Glow ambient background */}
+        <div className="absolute inset-0 bg-radial-at-t from-sky-600/10 via-transparent to-transparent opacity-70" />
+        <div className="absolute inset-0 bg-radial-at-b from-emerald-500/5 via-transparent to-transparent opacity-50" />
+        
+
+        {/* Small Header Branding */}
+        <div className="flex justify-between items-center relative z-10 mb-1 px-1">
+          <div className="text-[10px] font-bold tracking-tight text-white flex items-center gap-1">
+            <span className="text-sky-400">☀️</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-300">SolarScope</span>
+            <span className="text-zinc-500 font-normal text-[8px] font-mono">ESTIMATOR</span>
+          </div>
+          <div className="flex gap-1.5">
+            <div className="px-1.5 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-[7px] text-emerald-300 font-mono rounded font-semibold uppercase tracking-wider">
+              GREEN TECH
+            </div>
+            <div className="px-1.5 py-0.5 bg-sky-500/15 border border-sky-500/30 text-[7px] text-sky-300 font-mono rounded font-semibold uppercase tracking-wider animate-pulse">
+              HACKATHON PROJECT
+            </div>
+          </div>
+        </div>
+
+        {/* 3D hemisphere Globe and Dashboard overlay */}
+        <div className="flex-grow rounded-lg relative z-10 overflow-hidden flex flex-col justify-end p-2 bg-[#030d24]/40 border border-zinc-900/50">
+          
+          {/* Headline overlay */}
+          <div className="absolute top-2 left-2 right-2 text-center z-20">
+            <div className="text-[8px] font-extrabold uppercase tracking-wider text-zinc-300">
+              ESTIMATE YOUR SOLAR POTENTIAL
+            </div>
+            <div className="text-[6px] text-zinc-500 max-w-[200px] mx-auto mt-0.5 leading-tight">
+              Instantly calculate panel count and green energy outputs.
+            </div>
+          </div>
+
+          {/* Curved Globe Hemisphere */}
+          <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 h-48 rounded-full border border-sky-500/10 shadow-[0_0_40px_rgba(14,165,233,0.15)] bg-gradient-to-t from-emerald-600/30 via-sky-600/40 to-transparent">
+            {/* Visual clouds overlay */}
+            <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_20%_30%,#ffffff_8px,transparent_15px),radial-gradient(circle_at_70%_60%,#ffffff_12px,transparent_20px)]" />
+            
+            {/* Center estimation button */}
+            <button className="absolute top-5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-white text-zinc-950 rounded text-[7px] font-extrabold shadow shadow-white/30 uppercase tracking-wider">
+              Estimation
+            </button>
+          </div>
+
+          {/* Left Estimation widget overlay */}
+          <div className="absolute bottom-2 left-2 w-[34%] bg-zinc-950/80 border border-zinc-900/50 rounded p-1 text-[7px] text-left z-20 shadow">
+            <div className="text-zinc-500 font-mono text-[5px] uppercase">Panel Estimate</div>
+            <div className="font-bold text-white mt-0.5">14 Panels</div>
+            <div className="text-[5px] text-emerald-400 font-mono mt-0.5">⚡ 5.6 kW Gen</div>
+          </div>
+
+          {/* Right Sustainability metrics widget overlay */}
+          <div className="absolute bottom-2 right-2 w-[34%] bg-zinc-950/80 border border-zinc-900/50 rounded p-1 text-[7px] text-left z-20 shadow">
+            <div className="text-zinc-500 font-mono text-[5px] uppercase">CO2 Savings</div>
+            <div className="font-bold text-white mt-0.5">1.8 Tons/yr</div>
+            <div className="text-[5px] text-sky-400 font-mono mt-0.5">🍃 Eco: A+</div>
+          </div>
+        </div>
+
+        {/* Footer Info Row */}
+        <div className="flex justify-between items-center relative z-10 mt-1 px-1 text-[7px] text-zinc-500 font-mono">
+          <span>HACKATHON BUILD</span>
+          <span className="flex items-center gap-1 text-sky-400">
+            <span className="w-1 h-1 rounded-full bg-sky-400 animate-pulse" /> SIMULATION READY
+          </span>
+        </div>
+      </div>
+    );
+
+    // Main Card Component utilizing the Magnetic Cursor Track Effect
+    const ProjectCard = ({ project, onOpenDetails }) => {
+      const cardRef = useRef(null);
+      const [coords, setCoords] = useState({ x: 0, y: 0 });
+      const [isHovered, setIsHovered] = useState(false);
+
+      const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        
+        // Relative coordinates of cursor inside the element bounds
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        setCoords({ x, y });
+      };
+
+      const handleMouseEnter = () => {
+        setIsHovered(true);
+      };
+
+      const handleMouseLeave = () => {
+        setIsHovered(false);
+      };
+
+      return (
+        <div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => onOpenDetails(project)}
+          className="group relative bg-[#151515] hover:bg-[#1C1C1C] border border-[#2A2A2A] hover:border-zinc-700 rounded-2xl p-3 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-black/40"
+        >
+          {/* 1. Immersive Custom Cursor Following Badge */}
+          <div
+            className="pointer-events-none absolute z-40 hidden md:block rounded-full flex flex-col items-center justify-center font-bold text-white shadow-2xl transition-transform"
+            style={{
+              left: '0px',
+              top: '0px',
+              width: '90px',
+              height: '90px',
+              backgroundColor: project.badgeBg,
+              boxShadow: `0 10px 30px ${project.glowColor}`,
+              // This special bezier transition gives the organic rubber-band lag/spring effect
+              transition: isHovered 
+                ? 'transform 0.12s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-out, scale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                : 'transform 0.2s ease-out, opacity 0.2s ease-out, scale 0.2s ease-out',
+              transform: `translate3d(${coords.x - 45}px, ${coords.y - 45}px, 0) scale(${isHovered ? 1 : 0})`,
+              opacity: isHovered ? 1 : 0,
+            }}
+          >
+            <span className="text-[12px] uppercase tracking-widest font-extrabold flex flex-col items-center gap-0.5 text-white">
+              {project.badgeText}
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </div>
+
+          {/* 2. Interactive Mockup Top Container */}
+          <div className="h-56 w-full rounded-xl overflow-hidden relative">
+            <div className="w-full h-full transition-custom-bezier origin-center">
+              {project.id === 'campuscircle' && <CampusCircleMockup />}
+              {project.id === 'collegepredictor' && <CollegePredictorMockup />}
+              {project.id === 'niubuild' && <NiubuildMockup />}
+              {project.id === 'attendnest' && <AttendNestMockup />}
+              {project.id === 'platerelay' && <PlateRelayMockup />}
+              {project.id === 'solarscope' && <SolarScopeMockup />}
+            </div>
+          </div>
+
+          {/* 3. Text Descriptions and Tag list */}
+          <div className="p-4 flex-grow flex flex-col justify-between relative z-10">
+            <div>
+              <div className="flex justify-between items-center">
+                <h4 className="text-lg font-bold text-white group-hover:text-[#FF7A00] transition-colors duration-200">
+                  {project.title}
+                </h4>
+                <div className="w-7 h-7 rounded-full bg-zinc-900/80 border border-[#2A2A2A] flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-zinc-600 transition-all">
+                  <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </div>
+              <p className="text-xs text-[#A1A1AA] mt-2 line-clamp-2 leading-relaxed">
+                {project.description}
+              </p>
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {project.tags.map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="text-[10px] bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 px-2.5 py-1 rounded-full border border-[#2A2A2A] transition-colors font-mono"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Main App Component
+    export default function App() {
+      const [filter, setFilter] = useState('All');
+      const [selectedProject, setSelectedProject] = useState(null);
+      const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+      const [likedProjects, setLikedProjects] = useState({});
+      const [indiaTime, setIndiaTime] = useState('');
+
+      const handleOpenDetails = (project) => {
+        setSelectedProject(project);
+        setTimeout(() => {
+          setIsDrawerOpen(true);
+        }, 50);
+      };
+
+      const handleCloseDetails = () => {
+        setIsDrawerOpen(false);
+        setTimeout(() => {
+          setSelectedProject(null);
+        }, 380);
+      };
+
+      useEffect(() => {
+        const updateClock = () => {
+          const timeString = new Date().toLocaleTimeString('en-US', {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+          setIndiaTime(timeString);
+        };
+        updateClock();
+        const intervalId = setInterval(updateClock, 1000);
+        return () => clearInterval(intervalId);
+      }, []);
+
+      const renderTime = (timeStr) => {
+        if (!timeStr) return (
+          <span className="flex items-center">
+            <span>02</span>
+            <span className="animate-pulse mx-[2px] opacity-70">:</span>
+            <span>49</span>
+            <span className="text-[10px] text-zinc-500 font-sans font-normal ml-1 uppercase">AM</span>
+          </span>
+        );
+        const parts = timeStr.split(':');
+        if (parts.length < 2) return timeStr;
+        const hours = parts[0];
+        const rest = parts[1].split(' ');
+        const minutes = rest[0];
+        const ampm = rest[1] || '';
+        return (
+          <span className="flex items-center font-mono">
+            <span>{hours}</span>
+            <span className="animate-pulse mx-[2px] opacity-70">:</span>
+            <span>{minutes}</span>
+            <span className="text-[10px] text-zinc-500 font-sans font-normal ml-1 uppercase">{ampm}</span>
+          </span>
+        );
+      };
+
+      const projects = [
+        {
+          id: 'campuscircle',
+          title: 'CampusCircle',
+          description: 'CampusCircle is a student networking platform designed to help college students connect, collaborate, and grow with peers from different institutions across India. Students can discover communities, share resources, participate in discussions, find project teammates, connect with hackathon partners, and build meaningful academic and professional relationships.',
+          tags: ['React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
+          badgeText: 'Launch',
+          badgeBg: '#7c3aed', // Purple/Violet
+          glowColor: 'rgba(139, 92, 246, 0.4)',
+          accentColor: '#8b5cf6',
+          role: 'Full-Stack Developer & Designer',
+          duration: '6 Weeks',
+          challenge: 'CampusCircle is a modern student-focused social platform built to break college boundaries and create a nationwide student network.',
+          solution: 'Create a digital ecosystem where students across India can collaborate on projects, build hackathon teams, discover opportunities, share knowledge, and grow together regardless of their college.',
+          client: 'campuscircle.app',
+          liveLink: 'https://campus-circle-ruby.vercel.app/',
+          features: [
+            'Student Communities',
+            'Social Feed',
+            'Real-Time Messaging',
+            'Student Networking',
+            'Personalized Profiles',
+            'Secure Authentication',
+            'Resource Sharing',
+            'Project Collaboration'
+          ]
+        },
+        {
+          id: 'collegepredictor',
+          title: 'JEE College Predictor & AI Counseling Assistant',
+          description: 'A smart platform that helps JEE Main aspirants discover suitable colleges using real JoSAA and CSAB cutoff data. The system combines data-driven college prediction with an AI-powered counseling assistant to provide personalized guidance during the admission process.',
+          tags: ['HTML', 'CSS', 'JavaScript', 'Python', 'Flask', 'AI API'],
+          badgeText: 'Predict',
+          badgeBg: '#db2777', // Pink-600
+          glowColor: 'rgba(219, 39, 119, 0.4)',
+          accentColor: '#db2777',
+          role: 'Full-Stack Developer & Designer',
+          duration: '4 Weeks',
+          challenge: 'Aspirants face massive complexity during JoSAA/CSAB counseling due to hundreds of colleges, branches, and shifting category-wise cutoffs, leading to safe option selection and missed placements.',
+          solution: 'Designed a responsive college predictor platform driven by real cutoff databases with dynamic buffer adjustment logic and an integrated Gemini-powered AI counselor for real-time guidance.',
+          client: 'collegepredictor.app',
+          liveLink: 'https://college-predictor-2026.vercel.app/',
+          features: [
+            'Rank-Based College Prediction',
+            'JoSAA & CSAB Support',
+            'NIT, IIIT & GFTI Discovery',
+            'Category, Quota & Gender Filters',
+            'Safe & Low Chance Predictions',
+            'AI Counseling Assistant',
+            'Progressive Web App (PWA)',
+            'Mobile Friendly Interface'
+          ],
+          aiFeatures: [
+            'Gemini-Powered Chat Assistant',
+            'Context-Aware Counseling Guidance',
+            'Dataset-Based Recommendations',
+            'Natural Language Conversations'
+          ],
+          supportedData: [
+            'JoSAA Cutoffs',
+            'CSAB Cutoffs',
+            'NITs',
+            'IIITs',
+            'GFTIs'
+          ],
+          highlights: [
+            'Safe College Prediction System',
+            'Low Chance Opportunity Detection',
+            'Dynamic Cutoff Buffer Logic',
+            'AI-Powered Counseling Support',
+            'Installable PWA Experience'
+          ]
+        },
+        {
+          id: 'attendnest',
+          title: 'AttendNest',
+          description: 'A Progressive Web App built for students to track attendance, manage subjects, monitor attendance percentage, and receive smart reminders to maintain attendance requirements.',
+          tags: ['HTML5', 'CSS3', 'JavaScript', 'PWA', 'LocalStorage', 'Service Workers'],
+          badgeText: 'Live',
+          badgeBg: '#0284c7', // Sky-600
+          glowColor: 'rgba(14, 165, 233, 0.4)',
+          accentColor: '#0ea5e9',
+          role: 'Lead Developer & UI Designer',
+          duration: '3 Weeks',
+          challenge: 'Students frequently struggle to track their cumulative attendance across multiple subjects and classes, leading to unexpected attendance shortages and exam disqualifications.',
+          solution: 'Created an installable Progressive Web App (PWA) that operates offline using LocalStorage and Service Workers, providing students with clean analytics rings, visual metrics, and subject thresholds.',
+          client: 'attendnest.vercel.app',
+          liveLink: 'https://attendnest.vercel.app/',
+          features: [
+            'Subject Management',
+            'Smart Calendar System',
+            'Attendance Analytics',
+            'Smart Reminders',
+            'Progressive Web App Support'
+          ],
+          highlights: [
+            'Never miss attendance tracking again.',
+            'Offline First & Service Workers',
+            'Zero-Server LocalStorage Storage',
+            'Responsive Desktop & Mobile Viewport'
+          ]
+        },
+        {
+          id: 'platerelay',
+          title: 'PlateRelay',
+          description: 'A hackathon project focused on reducing food waste by connecting restaurants, hotels, college messes, and event organizers with NGOs and verified helping organizations. The platform enables real-time food donations, pickup coordination, and efficient redistribution of surplus food.',
+          tags: ['HTML', 'CSS', 'JavaScript', 'Firebase', 'Firestore', 'Leaflet Maps'],
+          badgeText: 'Donate',
+          badgeBg: '#10b981', // Emerald-500 / Green
+          glowColor: 'rgba(16, 185, 129, 0.4)',
+          accentColor: '#10b981',
+          role: 'Frontend Developer & UI Designer',
+          duration: '36 Hours',
+          challenge: 'Massive amounts of edible surplus food from events and restaurants are thrown away daily due to a lack of immediate, location-aware connection with local NGOs and distribution centers.',
+          solution: 'Developed a real-time web application integrating Firebase Firestore for instant status synchronization and Leaflet Maps to dynamically match donors with nearby pickup requests.',
+          client: 'platerelay.org',
+          liveLink: 'https://plate-relay1.vercel.app/',
+          features: [
+            'User Authentication',
+            'Surplus Food Posting',
+            'Real-Time Food Listings',
+            'NGO Dashboard',
+            'Pickup Management',
+            'Pickup Confirmation System',
+            'Maps Integration',
+            'Real-Time Database Updates'
+          ],
+          contribution: [
+            'Frontend Development',
+            'UI Design & Implementation',
+            'User Interface Development',
+            'Collaborative Product Development'
+          ],
+          workflow: [
+            'Food providers post available surplus food details.',
+            'NGOs discover nearby food listings via dynamic map markers.',
+            'Verified organizations accept corresponding pickup requests.',
+            'Food is securely collected from the provider source.',
+            'Digital pickup confirmation updates the platform instantly.'
+          ],
+          impact: 'PlateRelay aims to reduce food waste while supporting communities by creating a reliable food redistribution network powered by technology.',
+          futureVision: [
+            'Smart NGO Matching Algorithms',
+            'Real-Time Push Notifications',
+            'IoT Food Safety Tracking Sensors',
+            'Historical Donation Analytics',
+            'Multi-City Scalable Expansion'
+          ],
+          team: 'Developed collaboratively by Aadil, Ritraj, and Ansu during a hackathon.'
+        },
+        {
+          id: 'solarscope',
+          title: 'SolarScope',
+          description: 'A hackathon project designed to help users estimate solar energy potential through a simple and interactive interface. The platform provides instant calculations, visual insights, and basic feasibility analysis to encourage renewable energy awareness and adoption.',
+          tags: ['HTML5', 'CSS3', 'JavaScript'],
+          badgeText: 'Solar',
+          badgeBg: '#0284c7', // Sky-600
+          glowColor: 'rgba(14, 165, 233, 0.4)',
+          accentColor: '#0ea5e9',
+          role: 'Frontend Developer & UI Designer',
+          duration: '24 Hours',
+          challenge: 'Calculating solar feasibility is typically complex and requires professional tools, discouraging regular homeowners from exploring renewable energy conversions.',
+          solution: 'Developed an interactive, lightweight solar potential calculator featuring client-side mathematical projection curves and a highly visual globe dashboard that yields instant feedback.',
+          client: 'solarscope.app',
+          liveLink: 'https://solarscope-one.vercel.app/',
+          features: [
+            'Solar Potential Estimator',
+            'Instant Energy Calculations',
+            'Responsive Design',
+            'Interactive Dashboard',
+            'Real-Time Results',
+            'Clean User Experience'
+          ],
+          contribution: [
+            'Frontend Development',
+            'User Interface Design',
+            'Responsive Layout Development',
+            'Interactive User Experience'
+          ],
+          workflow: [
+            'User input collection (rooftop area, location, sunshine hours).',
+            'Input validation checking bounds and parameters.',
+            'Solar potential calculation based on efficiency models.',
+            'Instant result generation of panel count and power output.',
+            'Visual impact charts promoting carbon reduction metrics.'
+          ],
+          impact: 'SolarScope promotes renewable energy awareness by helping users understand their solar potential and encouraging informed decisions about clean energy adoption.',
+          futureVision: [
+            'Location-Based Real-Time Solar Data',
+            'Cost and ROI Estimation System',
+            'CO₂ Savings Calculator',
+            'Advanced Solar Path Analytics',
+            'Energy Consumption Comparison charts'
+          ],
+          team: 'Developed collaboratively by Aadil, Ritraj, and Vanika during a hackathon.'
+        }
+      ];
+
+      const filteredProjects = filter === 'All' 
+        ? projects 
+        : projects.filter(p => p.tags.includes(filter) || p.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase())));
+
+      const toggleLike = (id) => {
+        setLikedProjects(prev => ({
+          ...prev,
+          [id]: !prev[id]
+        }));
+      };
+
+      // Periodic progressive height updates to capture asynchronous React mounting
+      useEffect(() => {
+        const sendHeight = () => {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+          if (height > 100) {
+            window.parent.postMessage({
+              type: 'resize-projects-iframe',
+              height: height
+            }, '*');
+          }
+        };
+
+        // Run immediately
+        sendHeight();
+
+        // Run progressive timeouts to sync rendering shifts
+        const delays = [100, 250, 500, 750, 1000, 1500, 2000, 3000, 4000];
+        const timeouts = delays.map(delay => setTimeout(sendHeight, delay));
+
+        // Repeating interval fallback
+        const interval = setInterval(sendHeight, 1500);
+
+        // Also track dynamic ResizeObserver
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.body);
+        window.addEventListener('resize', sendHeight);
+
+        return () => {
+          timeouts.forEach(clearTimeout);
+          clearInterval(interval);
+          observer.disconnect();
+          window.removeEventListener('resize', sendHeight);
+        };
+      }, [filter]);
+
+      // Scroll lock & Scroll alignment signaling when details drawer toggles
+      useEffect(() => {
+        if (selectedProject) {
+          document.documentElement.style.overflow = 'hidden';
+          document.documentElement.style.height = '100%';
+          document.body.style.overflow = 'hidden';
+          document.body.style.height = '100%';
+          window.parent.postMessage({
+            type: 'lock-scroll',
+            lock: true
+          }, '*');
+        } else {
+          document.documentElement.style.overflow = '';
+          document.documentElement.style.height = '';
+          document.body.style.overflow = '';
+          document.body.style.height = '';
+          window.parent.postMessage({
+            type: 'lock-scroll',
+            lock: false
+          }, '*');
+        }
+        
+        // Push size update after state shift has processed and rendered
+        setTimeout(() => {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+          window.parent.postMessage({
+            type: 'resize-projects-iframe',
+            height: height
+          }, '*');
+        }, 120);
+      }, [selectedProject]);
+
+      return (
+        <div className={`min-h-screen ${selectedProject ? 'bg-transparent' : 'bg-[#0A0A0A]'} text-zinc-100 font-sans relative antialiased overflow-x-hidden selection:bg-[#FF7A00] selection:text-black`}>
+          {/* Background Ambience */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[140px] pointer-events-none" />
+
+          {/* Main Wrapper */}
+          <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 relative z-10">
+            
+            {/* Header Hero Area */}
+            <header className="mb-16">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-8 border-b border-zinc-800/60">
+                <div>
+
+                  <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-3">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400">Projects</span>
+                  </h1>
+                  <p className="text-sm md:text-base text-[#A1A1AA] max-w-xl leading-relaxed">
+                    
+                  </p>
+                </div>
+                
+                {/* Quick Stats Banner */}
+                <div className="flex gap-6 py-2 px-4 bg-zinc-900/40 border border-[#2A2A2A] rounded-xl backdrop-blur-sm">
+                  <div className="text-left">
+                    <div className="text-[10px] text-zinc-500 font-mono">LOCATION</div>
+                    <div className="text-sm font-semibold text-white flex items-center gap-1.5">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                      </span>
+                      <span>Bilaspur, IN</span>
+                    </div>
+                  </div>
+                  <div className="w-px h-8 bg-zinc-800 self-center" />
+                  <div className="text-left">
+                    <div className="text-[10px] text-zinc-500 font-mono">IST TIME</div>
+                    <div className="text-sm font-semibold text-white">
+                      {renderTime(indiaTime)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+
+            {/* Dynamic Project Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {filteredProjects.map((project) => (
+                <ProjectCard 
+                  key={project.id} 
+                  project={project} 
+                  onOpenDetails={handleOpenDetails} 
+                />
+              ))}
+            </div>
+
+            {/* Grid fallback */}
+            {filteredProjects.length === 0 && (
+              <div className="text-center py-20 bg-zinc-900/20 border border-dashed border-[#2A2A2A] rounded-2xl">
+                <Layers className="w-12 h-12 text-zinc-600 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-zinc-300">No projects found</h3>
+                <p className="text-xs text-zinc-500 mt-1">Try changing your current filters to explore alternative tech works.</p>
+              </div>
+            )}
+
+
+          </div>
+
+          {/* 4. Detailed Project Drawer Modal overlay */}
+          {selectedProject && (
+            <div className="fixed inset-0 z-50 flex items-center justify-end">
+              {/* Backdrop Click close (fades in/out) */}
+              <div 
+                onClick={handleCloseDetails} 
+                className={`absolute inset-0 bg-black/70 backdrop-transition ${isDrawerOpen ? 'opacity-100' : 'opacity-0'}`} 
+              />
+
+              {/* Side Drawer Content (slides in/out at full opacity) */}
+              <div className={`relative w-full max-w-2xl h-screen bg-[#0b0c10] border-l border-[#2A2A2A] shadow-2xl flex flex-col z-50 overflow-y-auto drawer-transition transform ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                
+                {/* Top Close Bar */}
+                <div className="sticky top-0 bg-[#0b0c10]/95 backdrop-blur-md z-10 px-6 py-4 border-b border-[#2A2A2A] flex justify-between items-center">
+                  <span className="text-[14px] font-mono text-zinc-500 uppercase tracking-widest">PROJECT SPECIFICATION</span>
+                  <button 
+                    onClick={handleCloseDetails}
+                    className="w-8 h-8 rounded-full bg-zinc-900 border border-[#2A2A2A] flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-all duration-300 hover:rotate-90 active:scale-90"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Banner Mockup render inside modal */}
+                <div className="h-72 w-full shrink-0 relative border-b border-[#2A2A2A] bg-zinc-950 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-60">
+                    {selectedProject.id === 'campuscircle' && <CampusCircleMockup />}
+                    {selectedProject.id === 'collegepredictor' && <CollegePredictorMockup />}
+                    {selectedProject.id === 'niubuild' && <NiubuildMockup />}
+                    {selectedProject.id === 'attendnest' && <AttendNestMockup />}
+                    {selectedProject.id === 'platerelay' && <PlateRelayMockup />}
+                    {selectedProject.id === 'solarscope' && <SolarScopeMockup />}
+                  </div>
+
+                </div>
+
+                {/* Description Body */}
+                <div className="p-8 space-y-8 flex-grow">
+                  
+                  {/* Header Title & Tags */}
+                  <div>
+                    <div className="flex justify-between items-start gap-4">
+                      <div>
+                        <h2 className="text-3xl font-black text-white tracking-tight">{selectedProject.title}</h2>
+
+                      </div>
+                      
+                      {/* Live visit button */}
+                      <a 
+                        href={selectedProject.liveLink || '#'}
+                        target={selectedProject.liveLink ? '_blank' : undefined}
+                        rel={selectedProject.liveLink ? 'noopener noreferrer' : undefined}
+                        onClick={selectedProject.liveLink ? undefined : (e) => { e.preventDefault(); }}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-[#FF7A00] text-black hover:bg-[#ff8e1a] font-bold text-xs rounded-xl shadow-lg shadow-[#FF7A00]/10 transition-all"
+                      >
+                        {selectedProject.liveLink ? 'Launch Live Site' : 'In Development'}
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+
+                    <p className="text-sm text-zinc-300 mt-5 leading-relaxed">
+                      {selectedProject.description}
+                    </p>
+
+                    {/* Tag pillbox */}
+                    <div className="flex flex-wrap gap-2 mt-5">
+                      {selectedProject.tags.map((tag, idx) => (
+                        <span 
+                          key={idx} 
+                          className="text-[11px] bg-zinc-900 text-zinc-300 border border-[#2A2A2A] px-3 py-1 rounded-lg"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+
+                  {/* Challenge vs Solution */}
+                  <div className="space-y-4">
+                    <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">Behind the Scenes</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                          <Terminal className="w-3.5 h-3.5" />
+                          The Challenge
+                        </h4>
+                        <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                          {selectedProject.challenge}
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                          <Compass className="w-3.5 h-3.5" />
+                          The Solution
+                        </h4>
+                        <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                          {selectedProject.solution}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Core Features list */}
+                  <div className="space-y-3">
+                    <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">Key Features</h3>
+                    <ul className="space-y-2">
+                      {selectedProject.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2.5 text-xs text-zinc-300">
+                          <div className="w-5 h-5 rounded-full bg-[#FF7A00]/10 flex items-center justify-center shrink-0">
+                            <Check className="w-3 h-3 text-[#FF7A00]" />
+                          </div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* My Contribution */}
+                  {selectedProject.contribution && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">My Contribution</h3>
+                      <ul className="space-y-2">
+                        {selectedProject.contribution.map((item, idx) => (
+                          <li key={idx} className="flex items-center gap-2.5 text-xs text-zinc-300">
+                            <div className="w-5 h-5 rounded-full bg-[#FF7A00]/10 flex items-center justify-center shrink-0">
+                              <span className="text-[10px] text-[#FF7A00] font-extrabold">•</span>
+                            </div>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Calculation Flow / Workflow */}
+                  {selectedProject.workflow && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">
+                        {selectedProject.id === 'solarscope' ? 'Calculation Flow' : 'Workflow Pipeline'}
+                      </h3>
+                      <div className="relative border-l-2 border-zinc-800 ml-2.5 pl-5 space-y-4">
+                        {selectedProject.workflow.map((step, idx) => (
+                          <div key={idx} className="relative">
+                            <div className="absolute -left-[27px] top-0.5 w-3 h-3 rounded-full bg-[#0b0c10] border-2 border-[#FF7A00] flex items-center justify-center" />
+                            <div className="text-xs font-semibold text-zinc-300 font-mono">Step {idx + 1}</div>
+                            <div className="text-xs text-zinc-400 mt-1">{step}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Social / Environmental Impact */}
+                  {selectedProject.impact && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">
+                        {selectedProject.id === 'solarscope' ? 'Environmental Impact' : 'Social Impact'}
+                      </h3>
+                      <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-900/30 flex gap-3">
+                        <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0 text-sm">
+                          🍃
+                        </div>
+                        <p className="text-xs text-zinc-300 leading-relaxed italic">
+                          "{selectedProject.impact}"
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Future Enhancements / Future Vision */}
+                  {selectedProject.futureVision && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">Future Enhancements</h3>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {selectedProject.futureVision.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs text-zinc-300 bg-zinc-900/30 border border-[#2A2A2A] p-2.5 rounded-lg">
+                            <span className="text-[#FF7A00] font-mono text-[10px] mt-0.5">⚡</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+
+                  {/* Supported Data / Coverage */}
+                  {selectedProject.supportedData && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-zinc-900 pb-2">Coverage & Databases</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.supportedData.map((dataItem, idx) => (
+                          <span key={idx} className="text-[10px] bg-zinc-900/60 border border-zinc-800 px-3 py-1 rounded-lg text-zinc-300 font-mono">
+                            {dataItem}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Unique Highlights list */}
+                  {selectedProject.highlights && (
+                    <div className="space-y-3">
+                      <h3 className="text-[14px] font-mono uppercase tracking-widest text-zinc-400 border-b border-[#2A2A2A] pb-2">Unique Highlights</h3>
+                      <ul className="space-y-2">
+                        {selectedProject.highlights.map((highlight, idx) => (
+                          <li key={idx} className="flex items-center gap-2.5 text-xs text-zinc-300">
+                            <div className="w-5 h-5 rounded-full bg-pink-500/10 flex items-center justify-center shrink-0">
+                              <Check className="w-3 h-3 text-pink-400" />
+                            </div>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Team Credits */}
+                  {selectedProject.team && (
+                    <div className="pt-6 mt-6 border-t border-[#2A2A2A] text-center">
+                      <p className="text-[10px] text-zinc-500 font-mono italic">
+                        {selectedProject.team}
+                      </p>
+                    </div>
+                  )}
+
+                </div>
+              </div>
+            </div>
+          )}
+
+        </div>
+      );
+    }
+
+    // Render
+    createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

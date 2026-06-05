@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aadil Hussain | Blogs Showcase</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background-color: #0A0A0A;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Custom scrollbars inside the modal article */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3A3A3A;
+    }
+
+    /* Premium Page Transition Overlay */
+    .article-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background-color: #0A0A0A;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1), transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: scale(0.96) translateY(16px);
+      pointer-events: none;
+    }
+    
+    .article-overlay.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Hide standard scrollbars on iframe body when article is active */
+    body.article-active {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#FF7A00] selection:text-black">
+
+  <!-- React Root Container -->
+  <div id="root"></div>
+
+  <!-- Babel Standalone for React JSX compilation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Babel React Script Module -->
+  <script type="text/babel" data-type="module">
+    import React, { useState, useRef, useEffect } from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+    import { 
+      ExternalLink, 
+      ArrowLeft, 
+      BookOpen, 
+      Clock, 
+      Calendar,
+      Github,
+      Share2,
+      Sparkles,
+      Check,
+      Layers,
+      ArrowUpRight
+    } from 'https://esm.sh/lucide-react@0.344.0';
+
+    // 1. Definition of the dynamic responsive Carousel Card Component
+    const CarouselCard = ({ data, onReadArticle, showCarousel = true, cardsPerView = 3 }) => {
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const [isSingleCard, setIsSingleCard] = useState(false);
+      const [isAnimating, setIsAnimating] = useState(false);
+      const containerRef = useRef(null);
+
+      useEffect(() => {
+        if (data) {
+          setIsSingleCard(data.length === 1);
+        }
+      }, [data]);
+
+      // Calculate width percentage for each card based on cardsPerView
+      const cardWidth = 100 / cardsPerView;
+
+      const nextSlide = () => {
+        if (isAnimating || !showCarousel || !data) return;
+        if (data.length <= cardsPerView) return;
+
+        setIsAnimating(true);
+        const nextIndex = (currentIndex + 1) % data.length;
+
+        if (containerRef.current) {
+          containerRef.current.style.transition = "transform 600ms cubic-bezier(0.16, 1, 0.3, 1)";
+          containerRef.current.style.transform = `translate3d(-${cardWidth}%, 0, 0)`;
+
+          setTimeout(() => {
+            setCurrentIndex(nextIndex);
+            if (containerRef.current) {
+              containerRef.current.style.transition = "none";
+              containerRef.current.style.transform = "translate3d(0, 0, 0)";
+              void containerRef.current.offsetWidth; // Force reflow
+              setIsAnimating(false);
+            }
+          }, 600);
+        }
+      };
+
+      const prevSlide = () => {
+        if (isAnimating || !showCarousel || !data) return;
+        if (data.length <= cardsPerView) return;
+
+        setIsAnimating(true);
+        const prevIndex = (currentIndex - 1 + data.length) % data.length;
+
+        if (containerRef.current) {
+          containerRef.current.style.transition = "none";
+          containerRef.current.style.transform = `translate3d(-${cardWidth}%, 0, 0)`;
+          setCurrentIndex(prevIndex);
+          void containerRef.current.offsetWidth; // Force reflow
+
+          containerRef.current.style.transition = "transform 600ms cubic-bezier(0.16, 1, 0.3, 1)";
+          containerRef.current.style.transform = "translate3d(0, 0, 0)";
+
+          setTimeout(() => {
+            setIsAnimating(false);
+          }, 600);
+        }
+      };
+
+      const getVisibleCards = () => {
+        if (!showCarousel || !data) return data || [];
+        const visibleCards = [];
+        const totalCards = data.length;
+
+        // Clone/repeat cards to enable infinite looping slideshow smoothly
+        for (let i = 0; i < cardsPerView + 1; i++) {
+          const index = (currentIndex + i) % totalCards;
+          visibleCards.push(data[index]);
+        }
+        return visibleCards;
+      };
+
+      return (
+        <div className="w-full relative px-4 select-none">
+          {/* Controls */}
+          {showCarousel && data.length > cardsPerView && (
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-1 pointer-events-none z-30">
+              <button
+                onClick={prevSlide}
+                disabled={isAnimating}
+                className="w-10 h-10 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center pointer-events-auto transition-all shadow-lg active:scale-95 disabled:opacity-50"
+                aria-label="Previous Slide"
+              >
+                ←
+              </button>
+              <button
+                onClick={nextSlide}
+                disabled={isAnimating}
+                className="w-10 h-10 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center pointer-events-auto transition-all shadow-lg active:scale-95 disabled:opacity-50"
+                aria-label="Next Slide"
+              >
+                →
+              </button>
+            </div>
+          )}
+
+          {/* Cards Frame */}
+          <div className="overflow-hidden rounded-2xl">
+            <div
+              ref={containerRef}
+              className="flex"
+              style={{
+                width: `${(cardsPerView + 1) * 100 / cardsPerView}%`
+              }}
+            >
+              {getVisibleCards().map((card, idx) => (
+                <div
+                  key={`${card.id}-${currentIndex}-${idx}`}
+                  style={{
+                    width: `${100 / (cardsPerView + 1)}%`
+                  }}
+                  className="px-3"
+                >
+                  {/* Card Design */}
+                  <div 
+                    onClick={() => onReadArticle(card)}
+                    className="group relative bg-[#151515] border border-[#2A2A2A] hover:border-zinc-700 rounded-2xl overflow-hidden transition-all duration-500 h-[430px] shadow-lg hover:shadow-2xl cursor-pointer"
+                  >
+                    
+                    {/* Full Card Image */}
+                    <div className="w-full h-full relative">
+                      <img
+                        src={card.imgUrl}
+                        alt={card.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      />
+                      
+                      {/* Dark Gradient Overlay for Title Legibility */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-95" />
+                      
+                      {/* Top Category Badge */}
+                      <span className="absolute top-4 left-4 px-2.5 py-1 bg-zinc-950/80 backdrop-blur-md border border-zinc-800 text-[10px] font-mono text-[#FF7A00] rounded-lg tracking-wider uppercase font-bold z-10 transition-opacity duration-500 group-hover:opacity-0">
+                        {card.category}
+                      </span>
+                      
+                      {/* Bottom Title Info (Legible before hover) */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5 z-10 text-left transition-opacity duration-500 group-hover:opacity-0">
+                        <div className="text-[9px] font-mono text-zinc-400 mb-1.5 uppercase tracking-widest">{card.date}</div>
+                        <h4 className="text-md font-bold text-white leading-snug">
+                          {card.title}
+                        </h4>
+                        <div className="text-[9px] font-mono text-[#FF7A00] mt-2 block">
+                          ⏱️ {card.readingTime} | Hover to read
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sliding Hover Overlay */}
+                    <div className="absolute inset-0 bg-[#151515] text-white p-5 transition-transform duration-1000 ease-in-out transform translate-y-full group-hover:translate-y-0 overflow-y-auto flex flex-col justify-between text-left z-20">
+                      <div>
+                        {/* Meta Row */}
+                        <div className="flex justify-between items-center border-b border-zinc-800 pb-2.5 mb-3.5">
+                          <span className="px-2 py-0.5 bg-[#FF7A00]/10 border border-[#FF7A00]/20 text-[9px] font-mono text-[#FF7A00] rounded">
+                            {card.category}
+                          </span>
+                          <span className="text-[9px] font-mono text-zinc-400">
+                            ⏱️ {card.readingTime}
+                          </span>
+                        </div>
+                        
+                        {/* Title */}
+                        <h4 className="text-sm font-bold text-white leading-snug mb-2.5 group-hover:text-[#FF7A00] transition-colors duration-200">
+                          {card.title}
+                        </h4>
+                        
+                        {/* Short Preview Text */}
+                        <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+                          {card.content}
+                        </p>
+                      </div>
+
+                      {/* Controls / Read Article Button */}
+                      <div className="pt-4 border-t border-zinc-800 mt-4">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); onReadArticle(card); }}
+                          className="w-full py-2 bg-[#FF7A00] hover:bg-[#ff8e1a] text-black font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5 active:scale-98"
+                        >
+                          Read Article
+                          <span className="text-[10px]">→</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Main App Component with unified state and navigation routing
+    function App() {
+      const [selectedArticle, setSelectedArticle] = useState(null);
+      const [isArticleActive, setIsArticleActive] = useState(false);
+      const [cardsPerView, setCardsPerView] = useState(3);
+      const [readProgress, setReadProgress] = useState(0);
+      const articleScrollRef = useRef(null);
+
+      // Handle responsive carousel column layout metrics
+      useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth < 640) {
+            setCardsPerView(1);
+          } else if (window.innerWidth < 1024) {
+            setCardsPerView(2);
+          } else {
+            setCardsPerView(3);
+          }
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
+      // Static Data Array holding detailed Case Studies
+      const blogs = [
+        {
+          id: 1,
+          slug: 'jee-college-predictor',
+          title: 'JEE College Predictor & AI Counseling Assistant',
+          category: 'AI + Education',
+          date: 'MAY 28, 2026',
+          readingTime: '5 MIN READ',
+          imgUrl: 'assets/my-blog-1.jpg',
+          content: 'Building an AI-powered counseling platform using real JoSAA and CSAB cutoff data to help JEE aspirants make better admission decisions.',
+          overview: 'The JEE College Predictor & AI Counseling Assistant is a data-driven EdTech platform designed to help JEE Main and Advanced aspirants discover suitable engineering placement options. Combining raw JoSAA/CSAB historical datasets with real-time Gemini-powered conversational guidance, it simplifies academic decision-making.',
+          problem: 'Aspirants face massive complexity during JoSAA/CSAB counseling due to hundreds of colleges, branches, and shifting category-wise cutoffs, leading to safe option selection and missed placements.',
+          whyBuilt: 'To provide a transparent, instantaneous forecasting tool driven by database cutoffs, removing the stress of counseling checklists and guiding students toward optimal choices.',
+          features: [
+            'Instant Rank-Based Forecasting (NITs, IIITs, GFTIs)',
+            'Category, Gender, Quota, and Round-Wise filters',
+            'CSAB & JoSAA datasets covering recent historical bounds',
+            'Context-Aware AI Chatbot Assistant for instant advice',
+            'Installable Progressive Web App (PWA) supporting offline access'
+          ],
+          techStack: ['HTML5', 'CSS3', 'JavaScript', 'Python', 'Flask', 'Gemini API', 'Vercel'],
+          process: 'We gathered multi-round Cutoff tables from official databases, built a lightweight Python Flask lookup microservice returning matched JSON matrices, designed a premium glassmorphic frontend UI, and connected the Chat window interface to Gemini API.',
+          challenges: 'Optimizing search query lookups across hundreds of thousands of cutoff rows. Solved by writing indexed filtering keys and caching core datasets on client browsers.',
+          learned: 'Learned the importance of schema designs for large analytical lookups and contextualizing raw data inside Gemini chatbot system prompts.',
+          improvements: [
+            'Real-Time College campus geographical maps integration',
+            'Direct comparisons of average college placements and fees',
+            'Push notification alerts signaling cutoff round drops'
+          ],
+          demoUrl: 'https://college-predictor-2026.vercel.app/',
+          githubUrl: 'https://github.com'
+        },
+        {
+          id: 2,
+          slug: 'campus-circle',
+          title: 'CampusCircle',
+          category: 'Social Platform',
+          date: 'APR 15, 2026',
+          readingTime: '6 MIN READ',
+          imgUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800',
+          content: 'The journey of creating a student networking platform that helps learners connect, collaborate, and grow beyond campus boundaries.',
+          overview: 'CampusCircle is a student-focused collaboration and social network built to break regional college boundaries and create a unified national student hub. It enables students to discover projects, form hackathon squads, share resources, and connect with peer groups.',
+          problem: 'Students are often confined to their own college boundaries, missing out on collaboration, hackathon partners, and cross-institutional resources.',
+          whyBuilt: 'To build a digital space that encourages cross-campus developer collaborations, connecting coders, designers, and creatives who want to build projects together.',
+          features: [
+            'Cross-Campus Community hubs and threads',
+            'Frictionless Hackathon teammate matching matching engine',
+            'Real-time messages subscription feeds',
+            'Unified Academic Resource libraries',
+            'Student Developer Profiles highlighting tech stacks and repos'
+          ],
+          techStack: ['React.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Vercel'],
+          process: 'Mapped Figma mockups, created relational Supabase tables with Row Level Security (RLS), implemented user accounts, and developed the web platform with Tailwind layouts.',
+          challenges: 'Synchronizing real-time chat feeds across multiple rooms. Solved using Supabase Real-Time database subscription triggers.',
+          learned: 'Mastered PostgreSQL table schemas, database design rules, and real-time subscription management in React.',
+          improvements: [
+            'Integrated Audio channels for live study rooms',
+            'Location-based hackathon team recommendation filters',
+            'Automated profile resume generators'
+          ],
+          demoUrl: 'https://campus-circle-ruby.vercel.app/',
+          githubUrl: 'https://github.com'
+        },
+        {
+          id: 3,
+          slug: 'platerelay',
+          title: 'PlateRelay',
+          category: 'Social Impact',
+          date: 'MAR 22, 2026',
+          readingTime: '4 MIN READ',
+          imgUrl: 'assets/my-blog-3.webp',
+          content: 'A hackathon project focused on reducing food waste by connecting surplus food providers with NGOs and helping organizations.',
+          overview: 'PlateRelay is a location-aware web application designed to connect food providers (wedding halls, hotels, university messes) with nearby NGOs and charities to minimize edible food waste.',
+          problem: 'Massive amounts of edible surplus food from events and restaurants are thrown away daily due to a lack of immediate connection with local food charities.',
+          whyBuilt: 'To provide a fast, location-based donation workflow that instantly alerts charities when surplus food is posted, ensuring it reaches people in need.',
+          features: [
+            'Instant Geolocation radius matching',
+            'Interactive food donation posting forms',
+            'NGO dashboard with maps routing directions',
+            'Real-time Firebase Firestore status alerts',
+            'Secure pickup confirmation code system'
+          ],
+          techStack: ['HTML5', 'CSS3', 'JavaScript', 'Firebase', 'Firestore', 'Leaflet Maps'],
+          process: 'Drafted map routing schemas, integrated Leaflet Maps API, hooked donor forms up to Firebase Firestore listener events, and built the mobile viewport wrapper during a 36-hour hackathon.',
+          challenges: 'Providing routing paths without consuming paid mapping APIs. Solved by mapping coordinates onto OpenStreetMap via Leaflet.',
+          learned: 'Learned mapping coordinate projections, Firebase backend setups, and rapid frontend mockup design.',
+          improvements: [
+            'Push alerts for nearby food listings',
+            'AI-based pickup route optimizations for NGO vans',
+            'Smart shelf-life estimator models based on food category'
+          ],
+          demoUrl: 'https://plate-relay1.vercel.app/',
+          githubUrl: 'https://github.com'
+        },
+        {
+          id: 4,
+          slug: 'solarscope',
+          title: 'SolarScope',
+          category: 'Green Technology',
+          date: 'FEB 10, 2026',
+          readingTime: '5 MIN READ',
+          imgUrl: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&q=80&w=800',
+          content: 'Designing a solar estimation platform that simplifies renewable energy awareness through interactive calculations and visualization.',
+          overview: 'SolarScope is a responsive interactive platform that simplifies solar energy estimation. It enables homeowners to understand solar feasibility, calculate energy yields, and visualize environmental impact metrics.',
+          problem: 'Calculating solar feasibility is typically complex and requires professional tools, discouraging regular homeowners from exploring renewable energy conversions.',
+          whyBuilt: 'To create a clean, modern green-energy calculator with a highly visual interface that encourages eco-awareness and adoption of clean energy.',
+          features: [
+            'Solar Potential and panel-yield calculator',
+            'Animated 3D Globe hemisphere visuals',
+            'Eco sustainability ratings (CO2 savings levels)',
+            'Dynamic client-side sunlight curves calculations',
+            'Responsive design mimicking professional SaaS products'
+          ],
+          techStack: ['HTML5', 'CSS3', 'JavaScript'],
+          process: 'Formulated projection metrics based on average sun hours, developed layered gradient 3D globe hemisphere graphics, and built the metrics overlay panels with smooth transitions.',
+          challenges: 'Simulating a rotating hemisphere globe and moving clouds without importing WebGL libraries. Solved using layered radial CSS gradients and keyframe shifts.',
+          learned: 'Mastered mathematical canvas metrics, CSS layout animations, and modern environmental UI design paradigms.',
+          improvements: [
+            'Automatic coordinates detection for irradiation feeds',
+            'Financial payoff calculators based on local electric rates',
+            'Direct links to local verified solar installers'
+          ],
+          demoUrl: 'https://solarscope-one.vercel.app/',
+          githubUrl: 'https://github.com'
+        }
+      ];
+
+      // Coordinate URL navigation parameters with parent window hash
+      useEffect(() => {
+        const syncHashWithState = () => {
+          const hash = window.parent.location.hash || window.location.hash;
+          if (hash.startsWith('#/insights/')) {
+            const articleSlug = hash.replace('#/insights/', '');
+            const matchedBlog = blogs.find(b => b.slug === articleSlug);
+            if (matchedBlog) {
+              setSelectedArticle(matchedBlog);
+              setTimeout(() => {
+                setIsArticleActive(true);
+              }, 40);
+              window.parent.postMessage({ type: 'lock-scroll', lock: true, source: 'blogs' }, '*');
+            } else {
+              setIsArticleActive(false);
+              setTimeout(() => {
+                setSelectedArticle(null);
+              }, 450);
+              window.parent.postMessage({ type: 'lock-scroll', lock: false, source: 'blogs' }, '*');
+            }
+          } else {
+            setIsArticleActive(false);
+            setTimeout(() => {
+              setSelectedArticle(null);
+            }, 450);
+            window.parent.postMessage({ type: 'lock-scroll', lock: false, source: 'blogs' }, '*');
+          }
+        };
+
+        syncHashWithState();
+        
+        // Setup parent hash listener bindings
+        try {
+          window.parent.addEventListener('hashchange', syncHashWithState);
+        } catch (e) {
+          window.addEventListener('hashchange', syncHashWithState);
+        }
+        
+        return () => {
+          try {
+            window.parent.removeEventListener('hashchange', syncHashWithState);
+          } catch (e) {}
+          window.removeEventListener('hashchange', syncHashWithState);
+        };
+      }, []);
+
+      // Trigger URL state modifications
+      const handleOpenArticle = (blog) => {
+        setSelectedArticle(blog);
+        window.parent.location.hash = `#/insights/${blog.slug}`;
+        setTimeout(() => {
+          setIsArticleActive(true);
+        }, 40);
+      };
+
+      const handleCloseArticle = () => {
+        setIsArticleActive(false);
+        window.parent.location.hash = '#blogs';
+        setTimeout(() => {
+          setSelectedArticle(null);
+        }, 450);
+      };
+
+      // Calculate Article reading progress indicator percentages
+      const handleArticleScroll = (e) => {
+        const target = e.currentTarget;
+        const totalHeight = target.scrollHeight - target.clientHeight;
+        if (totalHeight > 0) {
+          const progress = (target.scrollTop / totalHeight) * 100;
+          setReadProgress(progress);
+        }
+      };
+
+      // Progressive height updates to prevent scrollbar cuts on main portfolio
+      useEffect(() => {
+        const sendHeight = () => {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+          if (height > 100) {
+            window.parent.postMessage({
+              type: 'resize-blogs-iframe',
+              height: height
+            }, '*');
+          }
+        };
+        sendHeight();
+        const delays = [100, 250, 500, 750, 1000, 1500, 2000];
+        const timeouts = delays.map(delay => setTimeout(sendHeight, delay));
+        const observer = new ResizeObserver(sendHeight);
+        observer.observe(document.body);
+        
+        return () => {
+          timeouts.forEach(clearTimeout);
+          observer.disconnect();
+        };
+      }, [selectedArticle]);
+
+      return (
+        <div className="min-h-screen bg-[#0A0A0A] text-zinc-100 font-sans relative antialiased selection:bg-[#FF7A00] selection:text-black">
+          {/* Main List Grid View */}
+          <div className="max-w-6xl mx-auto px-4 md:px-8 py-16">
+            {/* Header Hero Area */}
+            <header className="mb-12 text-center md:text-left">
+              <span className="text-[15px] font-mono font-bold text-[#FF7A00] tracking-widest uppercase mb-2 block">// BLOGS</span>
+            </header>
+
+            {/* Responsive Carousel component implementation */}
+            <div className="w-full">
+              <CarouselCard 
+                data={blogs} 
+                onReadArticle={handleOpenArticle} 
+                cardsPerView={cardsPerView}
+              />
+            </div>
+          </div>
+
+          {/* Premium Detailed Reading Mode view (Overlay Modal with Fade-In Transition) */}
+          {selectedArticle && (
+            <div 
+              ref={articleScrollRef}
+              onScroll={handleArticleScroll}
+              className={`article-overlay ${isArticleActive ? 'active' : ''}`}
+            >
+              {/* Sticky Progress Bar */}
+              <div 
+                className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-[#FF7A00] to-orange-400 z-50 transition-all duration-100"
+                style={{ width: `${readProgress}%` }}
+              />
+
+              {/* Floating Back to Portfolio trigger button */}
+              <div className="w-full sticky top-0 bg-[#0A0A0A]/95 backdrop-blur-md z-40 border-b border-[#2A2A2A] flex justify-center shrink-0">
+                <div className="w-full max-w-4xl px-6 py-4 flex justify-between items-center">
+                  <button 
+                    onClick={handleCloseArticle}
+                    className="flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-white transition-all bg-zinc-900 border border-[#2A2A2A] hover:border-zinc-700 px-4 py-2 rounded-xl"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    Back to Portfolio
+                  </button>
+                </div>
+              </div>
+
+              {/* Full Width Hero Image with gradient blends */}
+              <div className="w-full h-[320px] md:h-[480px] shrink-0 relative overflow-hidden">
+                <img 
+                  src={selectedArticle.imgUrl} 
+                  alt={selectedArticle.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+                
+                {/* Center Title overlay */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-3xl px-6 text-left">
+                  <span className="px-3 py-1 bg-[#FF7A00] text-black font-extrabold text-[10px] font-mono rounded uppercase tracking-wider mb-3 inline-block">
+                    {selectedArticle.category}
+                  </span>
+                  <h1 className="text-3xl md:text-5xl font-black text-white leading-tight mt-1 uppercase text-shadow-sm">
+                    {selectedArticle.title}
+                  </h1>
+                  
+                  {/* Meta stats bar */}
+                  <div className="flex gap-6 mt-4 text-xs text-zinc-400 font-mono">
+                    <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-[#FF7A00]" /> {selectedArticle.date}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#FF7A00]" /> {selectedArticle.readingTime}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Article content body */}
+              <article className="w-full max-w-3xl px-6 py-12 space-y-10 text-left text-[#D4D4D8]">
+                
+                {/* 1. Project Overview */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    01 / Project Overview
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-300">
+                    {selectedArticle.overview}
+                  </p>
+                </section>
+
+                {/* 2. Problem Statement */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    02 / The Problem Statement
+                  </h3>
+                  <div className="p-5 bg-red-950/10 border border-red-900/20 rounded-2xl">
+                    <p className="text-sm md:text-base leading-relaxed text-zinc-300 italic">
+                      "{selectedArticle.problem}"
+                    </p>
+                  </div>
+                </section>
+
+                {/* 3. Why I Built It */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    03 / Why I Built It
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-300">
+                    {selectedArticle.whyBuilt}
+                  </p>
+                </section>
+
+                {/* 4. Features */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    04 / Key Features
+                  </h3>
+                  <ul className="space-y-2">
+                    {selectedArticle.features.map((feature, index) => (
+                      <li key={index} className="flex items-center gap-2.5 text-sm text-zinc-300">
+                        <div className="w-5 h-5 rounded-full bg-[#FF7A00]/10 flex items-center justify-center shrink-0">
+                          <Check className="w-3 h-3 text-[#FF7A00]" />
+                        </div>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                {/* 5. Tech Stack */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    05 / Technology Stack
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedArticle.techStack.map((tech, index) => (
+                      <span 
+                        key={index}
+                        className="px-3.5 py-1.5 bg-zinc-900/60 border border-[#2A2A2A] rounded-xl text-xs font-mono text-zinc-300"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </section>
+
+                {/* 6. Development Process */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    06 / Development Process
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-300">
+                    {selectedArticle.process}
+                  </p>
+                </section>
+
+                {/* 7. Challenges Faced */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    07 / Challenges Faced
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-300">
+                    {selectedArticle.challenges}
+                  </p>
+                </section>
+
+                {/* 8. What I Learned */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    08 / What I Learned
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-zinc-300">
+                    {selectedArticle.learned}
+                  </p>
+                </section>
+
+                {/* 9. Future Improvements */}
+                <section className="space-y-3">
+                  <h3 className="text-lg font-bold text-white uppercase tracking-wider font-mono border-b border-[#2A2A2A] pb-2 text-[#FF7A00]">
+                    09 / Future Improvements
+                  </h3>
+                  <ul className="space-y-2">
+                    {selectedArticle.improvements.map((improvement, index) => (
+                      <li key={index} className="flex items-center gap-2.5 text-sm text-zinc-300">
+                        <div className="w-5 h-5 rounded-full bg-[#FF7A00]/10 flex items-center justify-center shrink-0">
+                          <span className="text-[10px] text-[#FF7A00] font-extrabold">✦</span>
+                        </div>
+                        {improvement}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                {/* 10. Links & Back Controls */}
+                <section className="pt-8 border-t border-[#2A2A2A] flex flex-wrap gap-4 justify-between items-center">
+                  <div className="flex gap-3">
+                    <a 
+                      href={selectedArticle.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-5 py-2.5 bg-[#FF7A00] text-black hover:bg-[#ff8e1a] font-bold text-xs rounded-xl shadow-lg transition-all"
+                    >
+                      Check Site
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  <button 
+                    onClick={handleCloseArticle}
+                    className="text-xs font-mono font-semibold text-zinc-500 hover:text-[#FF7A00] transition-colors"
+                  >
+                    Back to Portfolio
+                  </button>
+                </section>
+                
+              </article>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

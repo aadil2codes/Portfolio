@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aadil - ECE Student & Developer portfolio. High-performance software engineering, ECE design, and premium digital creation.">
+  <title>Aadil | ECE Student & Developer</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css?v=1.4.5">
+  <noscript><style>body { opacity: 1 !important; }</style></noscript>
+
+</head>
+<body>
+
+  <!-- Dynamic Ambient Background Glow -->
+  <div class="ambient-glow" id="ambientGlow"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- Global Navigation Header -->
+  <header class="global-header">
+    <div class="navbar">
+      <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <img src="assets/favicon.png" alt="Aadil Logo" class="logo-img">
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active" id="nav-home">Home</a>
+        <a href="#about" class="nav-link" id="nav-about">About</a>
+        <a href="#skills" class="nav-link" id="nav-skills">Skills</a>
+        <a href="#projects" class="nav-link" id="nav-projects">Projects</a>
+        <a href="#blogs" class="nav-link" id="nav-blogs">Blogs</a>
+        <a href="chat.html" class="nav-link" id="nav-aichat">Ask AI</a>
+        <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-container" id="heroContainer">
+        
+        <!-- Hero Body Content -->
+        <div class="hero-body">
+          
+          <!-- Left Content Area -->
+          <div class="hero-left">
+            <div class="hero-sub-badge">Hey, I'm</div>
+            <h1 class="hero-headline name-headline" id="bubble-name">
+              AADIL
+            </h1>
+            
+            <p class="hero-desc">
+              I create responsive and user friendly websites, focusing on clean design, functionality, and a smooth user experience.
+            </p>
+            
+            <!-- Social Media Icons Row -->
+            <div class="social-row">
+              <a href="https://github.com/aadil2codes" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                  <path d="M9 18c-4.51 2-5-2-7-2" />
+                </svg>
+              </a>
+              
+              <a href="https://www.linkedin.com/in/aadil-‌-643910375" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              
+              <a href="https://www.instagram.com/aa.dill._?igsh=ODE1N3Y3NnM0Mm0z" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Right Content Area (Monochrome Portrait Overlay) -->
+          <div class="hero-right">
+            <!-- Backing ambient circle -->
+            <div class="portrait-circle-ambient"></div>
+            <div class="portrait-circle-border"></div>
+            
+            <!-- Large monochrome portrait frame -->
+            <div class="portrait-wrapper" id="portraitWrapper">
+              <img src="assets/my.png" alt="Aadil - ECE Student & Developer" class="portrait-img" id="portraitImg">
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="about-section" id="about">
+      <div class="about-container" id="aboutContainer">
+        
+        <!-- Left Side Content (45%) -->
+        <div class="about-left">
+          <div class="about-label" style="font-size: 15px !important;">ABOUT ME</div>
+          
+          <!-- ABOUT ME CONTENT PANEL -->
+          <div class="about-panel active" id="about-me-panel">
+            <!-- <h2 class="about-headline">
+              Building Projects,<br>
+              Learning Fast,<br>
+              <span class="gradient-text">Creating Impact</span>
+            </h2> -->
+            
+            <p class="about-desc">
+               I am an Electronics & Communication Engineering student passionate about building real world projects through code.</p>
+            
+            <!-- Highlight Cards -->
+            <div class="about-cards">
+              <div class="about-card glow-card" id="btnAcademicModal" style="cursor: pointer;">
+                <div class="about-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                  </svg>
+                </div>
+                <div class="about-card-info">
+                  <h3 class="about-card-title">B.Tech ECE Student</h3>
+                  <p class="about-card-desc">Hardware-software interface systems</p>
+                </div>
+              </div>
+              
+              <div class="about-card glow-card" id="btnGoToProjects" style="cursor: pointer;">
+                <div class="about-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                  </svg>
+                </div>
+                <div class="about-card-info">
+                  <h3 class="about-card-title">Website Developer</h3>
+                  <p class="about-card-desc"> Modern websites & AI exploration</p>
+                </div>
+              </div>
+              
+              <div class="about-card glow-card" id="btnCreatorModal" style="cursor: pointer;">
+                <div class="about-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+                  </svg>
+                </div>
+                <div class="about-card-info">
+                  <h3 class="about-card-title">Content Creator</h3>
+                  <p class="about-card-desc">Exploring ideas through digital content</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Resume Action Button -->
+            <div class="about-actions">
+              <a href="assets/MY RESUME.pdf" target="_blank" rel="noopener noreferrer" class="btn primary-cta about-btn" id="btnResume">
+                <span>View Resume</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px; margin-left: 6px; display: inline-block; vertical-align: middle;">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- Right Side Content: Dual Panel Showcase (55%) -->
+        <div class="about-right">
+          
+          <!-- ABOUT ME RIGHT PANEL (Interactive Tilt Card) -->
+          <div class="about-right-panel active" id="about-me-right-panel">
+            <div class="tilt-card-container">
+              <div class="tilt-card" id="interactiveTiltCard">
+                <img src="assets/flower-tilt.jpg" alt="Interactive Tilt Card Showcase" class="tilt-card-img" />
+                <div class="tilt-card-glare" id="tiltCardGlare"></div>
+              </div>
+            </div>
+
+          </div>
+          
+
+          
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+      <div class="skills-container" id="skillsContainer">
+        
+        <!-- Left Side Content (40%) -->
+        <div class="skills-left">
+          <div class="skills-label">MY SKILLS</div>
+<!--           
+          <h2 class="skills-headline">
+            Tools, Technologies<br>
+            &amp; Skills I Use<br>
+            <span class="gradient-text">To Build Things</span>
+          </h2>
+           -->
+          <!-- <p class="skills-desc">
+            Rather than just studying engineering theory, my learning methodology centers entirely on building real projects. I am constantly expanding my technical stacks, developing skills across core programming languages, modern web ecosystems, data algorithms, and premium digital content creation.
+          </p> -->
+          
+          <!-- Skill Categories List -->
+          <div class="skills-categories">
+            <div class="skills-category active" id="cat-programming">
+              <div class="skills-cat-header">
+                <div class="skills-cat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                  </svg>
+                </div>
+                <h3 class="skills-cat-title">Programming</h3>
+              </div>
+              <div class="skills-cat-tags">
+                <span class="skill-tag">C Programming Language</span>
+                <!-- <span class="skill-tag">JavaScript (ES6+)</span>
+                <span class="skill-tag">C / C++</span> -->
+              </div>
+            </div>
+            
+            <div class="skills-category" id="cat-webdev">
+              <div class="skills-cat-header">
+                <div class="skills-cat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                </div>
+                <h3 class="skills-cat-title">Web Development</h3>
+              </div>
+              <div class="skills-cat-tags">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">Responsive Design</span>
+              </div>
+            </div>
+            
+            <div class="skills-category" id="cat-datasci">
+              <div class="skills-cat-header">
+                <div class="skills-cat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                </div>
+                <h3 class="skills-cat-title">Tools & Platforms</h3>
+              </div>
+              <div class="skills-cat-tags">
+                <span class="skill-tag">GitHub</span>
+                <span class="skill-tag">VS Code</span>
+                <span class="skill-tag">Supabase</span>
+                <span class="skill-tag">Render</span>
+              </div>
+            </div>
+            
+            <!-- <div class="skills-category" id="cat-aitools">
+              <div class="skills-cat-header">
+                <div class="skills-cat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                  </svg>
+                </div>
+                <h3 class="skills-cat-title">AI &amp; Hardware</h3>
+              </div>
+              <div class="skills-cat-tags">
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">Deep Learning</span>
+                <span class="skill-tag">OpenCV</span>
+                <span class="skill-tag">Microcontrollers</span>
+              </div>
+            </div>
+             -->
+            <div class="skills-category" id="cat-content">
+              <div class="skills-cat-header">
+                <div class="skills-cat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                  </svg>
+                </div>
+                <h3 class="skills-cat-title">Content Creation</h3>
+              </div>
+              <div class="skills-cat-tags">
+                <span class="skill-tag">Youtube Video Creation</span>
+                <span class="skill-tag">Video Editing</span>
+                <span class="skill-tag">Thumbnail Design</span>
+                <span class="skill-tag">SEO Optimization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Side Content: Isolated Kinetic Typography Engine (60%) -->
+        <div class="skills-right">
+          <div class="kinetic-frame-wrapper glow-card">
+            <!-- Embedded standalone isolated Kinetic Typography Page -->
+            <iframe src="skills-kinetic.html" class="kinetic-iframe" title="Aadil Skills - Kinetic Typography Engine" scrolling="no"></iframe>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Projects Showcase Section -->
+    <section class="projects-section" id="projects">
+      <div class="projects-container">
+        <!-- Embedded standalone isolated Projects Showcase Page -->
+        <iframe src="projects-showcase.html" class="projects-iframe" id="projectsIframe" title="Aadil Hussain - Projects Showcase" scrolling="auto"></iframe>
+      </div>
+    </section>
+
+    <!-- Blogs Showcase Section -->
+    <section class="blogs-section" id="blogs">
+      <div class="blogs-container">
+        <!-- Embedded standalone isolated Blogs Showcase Page -->
+        <iframe src="blogs-showcase.html" class="blogs-iframe" id="blogsIframe" title="Aadil Hussain - Blogs Showcase" scrolling="no"></iframe>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-container">
+        
+        <!-- Left Side Column (45%) -->
+        <div class="contact-left scroll-reveal">
+          <div class="contact-label">// GET IN TOUCH</div>
+          
+          <h2 class="contact-headline">
+            LET'S CONNECT &amp;<br>
+            <span class="gradient-text">BUILD SOMETHING AMAZING</span>
+          </h2>
+          
+          <p class="contact-desc">
+            I'm always open to discussing projects, collaborations, internships, development opportunities, and creative ideas. Let's build something exceptional together!
+          </p>
+          
+          
+          <!-- Inline Social Links -->
+          <div class="contact-socials">
+            <a href="https://github.com/aadil2codes" target="_blank" rel="noopener noreferrer" class="social-link"><span class="slash">/</span> GitHub</a>
+            <a href="https://www.linkedin.com/in/aadil-‌-643910375" target="_blank" rel="noopener noreferrer" class="social-link"><span class="slash">/</span> LinkedIn</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link"><span class="slash">/</span> YouTube</a>
+            <a href="https://www.instagram.com/aa.dill._?igsh=ODE1N3Y3NnM0Mm0z" target="_blank" rel="noopener noreferrer" class="social-link"><span class="slash">/</span> Instagram</a>
+            <div class="email-popover-wrapper" id="emailPopoverWrapper">
+              <button type="button" class="social-link" id="btnEmailPopover"><span class="slash">/</span> Email</button>
+              <div class="email-popover-box" id="emailPopoverBox">
+                <span class="email-text">aadil2githubb@gmail.com</span>
+                <button type="button" class="email-copy-btn" id="btnCopyEmail" title="Copy Email">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+                <span class="copy-success-tooltip" id="copySuccessTooltip">Copied!</span>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <!-- Right Side Column (55%) -->
+        <div class="contact-right scroll-reveal">
+          <div class="contact-form-card glow-card">
+            <div class="form-glow" id="formGlow"></div>
+            
+            <form class="contact-form" id="contactForm">
+              <div class="form-field">
+                <label for="form-name" class="form-input-label">Name*</label>
+                <input type="text" id="form-name" name="name" class="form-input" placeholder="Your name" required />
+              </div>
+              
+              <div class="form-field">
+                <label for="form-email" class="form-input-label">Email*</label>
+                <input type="email" id="form-email" name="email" class="form-input" placeholder="Email address" required />
+              </div>
+              
+              <div class="form-field">
+                <label for="form-subject" class="form-input-label">Subject</label>
+                <input type="text" id="form-subject" name="subject" class="form-input" placeholder="How can I help you?" />
+              </div>
+              
+              <div class="form-field">
+                <label for="form-message" class="form-input-label">Project Description / Message*</label>
+                <textarea id="form-message" name="message" class="form-input form-textarea" placeholder="Write your project details or message here..." required></textarea>
+              </div>
+              
+              <button type="submit" class="submit-btn" id="submitBtn">
+                <span>Send Message</span>
+                <svg class="submit-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+            </form>
+          </div>
+          
+        </div>
+        
+    </section>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <div class="footer-rights-label">ALL RIGHTS RESERVED.</div>
+          <p class="footer-copyright">&copy; 2026 AADIL HUSSAIN</p>
+        </div>
+        
+        <div class="footer-right">
+          <div class="footer-time-group">
+            <div class="footer-time-label">LOCAL TIME</div>
+            <div class="footer-time-val">
+              <span class="footer-star-icon">★</span>
+              <span id="footer-local-time">12:00:00 AM, GMT +5:30</span>
+            </div>
+          </div>
+          
+          <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to top" aria-label="Scroll to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating AI Chatbot Button & Panel -->
+    <div class="ai-chat-float-wrapper">
+      <!-- Floating Trigger Button -->
+      <button class="ai-chat-float-btn" id="aiChatFloatBtn" title="Ask Aadil AI">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <path d="M12 7l1 1.5 1.5 1-1.5 1-1 1.5-1-1.5-1.5-1 1.5-1z" fill="currentColor"></path>
+        </svg>
+        <span class="float-btn-badge">AI</span>
+      </button>
+
+      <!-- Sliding Panel -->
+      <div class="ai-chat-panel" id="aiChatPanel">
+        <div class="ai-chat-panel-header">
+          <div class="header-title-group">
+            <span class="ai-avatar">✨</span>
+            <h3>Ask Aadil</h3>
+          </div>
+          <div class="header-action-group">
+            <button class="panel-icon-btn" id="clearChatPanel" title="Clear Chat History">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+            <a href="chat.html" class="panel-icon-btn expand-panel-btn" id="expandChatPanel" title="Expand to Full Page" style="display: flex; align-items: center; justify-content: center; text-decoration: none; color: inherit;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </a>
+            <button class="panel-icon-btn close-panel-btn" id="closeChatPanelBtn" title="Close Panel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages Body -->
+        <div class="ai-chat-messages" id="aiChatMessagesPanel">
+          <div class="chat-message ai-message">
+            <div class="message-content-wrapper">
+              <div class="message-bubble">
+                👋 Hello! I'm your AI assistant. Ask me anything about Aadil's projects, studies, or skills!
+              </div>
+              <span class="message-time">Just now</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggestion list inside panel -->
+        <div class="panel-suggestions">
+          <button class="suggestion-chip" type="button" data-prompt="Tell me about Aadil">✨ Tell me about Aadil</button>
+          <button class="suggestion-chip" type="button" data-prompt="Explain CampusCircle">💻 Explain CampusCircle</button>
+          <button class="suggestion-chip" type="button" data-prompt="What are Aadil's skills?">🛠️ What are his skills?</button>
+        </div>
+
+        <!-- Form Input -->
+        <div class="chat-input-panel" style="padding: 12px 16px; border-top: 1px solid var(--border-color); background: #0E0E11;">
+          <form class="ai-chat-input-area" id="aiChatInputAreaPanel" style="display: flex; align-items: center; gap: 8px;">
+            <input type="text" class="ai-chat-input" id="aiChatInputPanel" placeholder="Write a message..." required autocomplete="off" style="flex-grow: 1; padding: 10px 14px; font-size: 13px;" />
+            <button type="submit" class="ai-chat-send-btn" id="aiChatSendBtnPanel" style="width: 38px; height: 38px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Sticky Nav Menu Dropdown -->
+  <div class="sticky-menu-wrapper" id="stickyMenuWrapper">
+    <button class="sticky-menu-trigger" id="stickyMenuTrigger">
+      <span>Menu</span>
+      <svg class="sticky-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="7 15 12 20 17 15"></polyline>
+        <polyline points="7 9 12 4 17 9"></polyline>
+      </svg>
+    </button>
+    <div class="sticky-menu-dropdown" id="stickyMenuDropdown">
+      <div class="sticky-dropdown-header" id="stickyMenuClose">
+        <span>Menu</span>
+        <div class="header-right-group">
+          <span class="purple-dot"></span>
+          <svg class="sticky-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="7 15 12 20 17 15"></polyline>
+            <polyline points="7 9 12 4 17 9"></polyline>
+          </svg>
+        </div>
+      </div>
+      <a href="#home" class="sticky-dropdown-link">Home</a>
+      <a href="#about" class="sticky-dropdown-link">About</a>
+      <a href="#skills" class="sticky-dropdown-link">Skills</a>
+      <a href="#projects" class="sticky-dropdown-link">Projects</a>
+      <a href="#blogs" class="sticky-dropdown-link">Blogs</a>
+      <a href="chat.html" class="sticky-dropdown-link">Ask AI</a>
+      <a href="#contact" class="sticky-dropdown-link">Contact</a>
+    </div>
+  </div>
+
+  </main>
+
+  <!-- Script for Premium Parallax and Interactive Glows -->
+  <script src="script.js?v=1.0.2"></script>
+  <!-- Chatbot Logic Engine -->
+  <script src="chat.js"></script>
+
+  <!-- Academic Section Modal Overlay -->
+  <div class="academic-modal-overlay" id="academicModal">
+    <div class="academic-modal-container">
+      <button class="academic-modal-close-btn" id="btnCloseAcademicModal" aria-label="Close Modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      
+      <div class="academic-cards-container">
+        
+        <!-- CARD 1 — B.TECH -->
+        <div class="academic-card glow-card" id="academic-btech">
+          <div class="academic-glow" style="--x: 0px; --y: 0px;"></div>
+          <div class="academic-card-header">
+            <span class="academic-card-emoji">🎓</span>
+            <div class="academic-card-title-group">
+              <h3 class="academic-card-title">B.Tech in Electronics &amp; Communication Engineering</h3>
+              <span class="status-badge-inline">
+                <span class="status-dot-orange"></span>
+                Currently Pursuing
+              </span>
+            </div>
+          </div>
+          <div class="academic-card-body">
+            <div class="editable-group">
+              <label class="editable-label">College</label>
+              <div class="editable-value" contenteditable="true" spellcheck="false" data-placeholder="Enter College Name">Guru Ghasidas University, Bilaspur</div>
+            </div>
+            <div class="academic-meta-row">
+              <div class="editable-group">
+                <label class="editable-label">Current Year</label>
+                <div class="editable-value" contenteditable="true" spellcheck="false" data-placeholder="Enter Year">2nd Year</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CARD 2 — HACKATHON -->
+        <div class="academic-card glow-card" id="academic-campus-hackathon">
+          <div class="academic-glow" style="--x: 0px; --y: 0px;"></div>
+          <div class="academic-card-header">
+            <span class="academic-card-emoji">💻</span>
+            <div class="academic-card-title-group">
+              <h3 class="academic-card-title">Hackathon Exprience</h3>
+            </div>
+          </div>
+          <div class="academic-card-body">
+            <ul class="academic-list">
+              <li>
+                <span class="list-bullet">🔸</span>
+                Participated in College Hackathon
+              </li>
+              <li>
+                <span class="list-bullet">🔸</span>
+                Worked on Real-World Problem Solving
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- CARD 3 — CAMPUS INVOLVEMENT -->
+        <div class="academic-card glow-card" id="academic-campus-clubs">
+          <div class="academic-glow" style="--x: 0px; --y: 0px;"></div>
+          <div class="academic-card-header">
+            <span class="academic-card-emoji">🤝</span>
+            <div class="academic-card-title-group">
+              <h3 class="academic-card-title">Campus Involvement</h3>
+            </div>
+          </div>
+          <div class="academic-card-body">
+            <ul class="academic-list">
+              <label class="editable-label">Active Member</label>
+              <li>
+                <span class="list-bullet">🔸</span>
+                Film Making Club <strong>Chalchitra</strong>
+              </li>
+              <li>
+                <span class="list-bullet">🔸</span>
+                Magazine Club <strong>Udaan</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube Creator Modal Overlay -->
+  <div class="creator-modal-overlay" id="creatorModal">
+    <div class="creator-modal-container">
+      <button class="creator-modal-close-btn" id="btnCloseCreatorModal" aria-label="Close Modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      
+      <div class="creator-modal-content">
+        <div class="creator-modal-left">
+          <div class="creator-label">YOUTUBE JOURNEY</div>
+          <h2 class="creator-headline">My YouTube Journey</h2>
+          
+          <div class="creator-story">
+            <p>It was the time when the lockdown had finally ended, and my classes were about to start. But before that, I had already started a YouTube channel.</p>
+            <p>In the beginning, I used to upload two videos every day. Later, when my classes started, I continued with one video a day.</p>
+            <p>Throughout this journey, I learned a lot like how YouTube actually works, how to edit videos, write scripts, and understand the algorithm. But more than anything, I learned patience and consistency.</p>
+            <p>Slowly after 6-7 months, one of my videos went viral. My channel began to grow, and that moment gave me a big motivation boost.</p>
+            <p>After months, when my channel finally started growing, it got monetized. I still remember it was a Monday when I received my first income that was around 100 dollars. I know it’s not much, but I’m really proud of it, not just because of the money but because of the skills and experience I gained while earning it.</p>
+          </div>
+          
+          <div class="creator-tags">
+            <span class="creator-tag">#MyFirstIncome</span>
+            <span class="creator-tag">#YouTubeJourney</span>
+            <span class="creator-tag">#StudentLife</span>
+            <span class="creator-tag">#ContentCreation</span>
+          </div>
+        </div>
+        
+        <div class="creator-modal-right">
+          <div class="creator-img-wrapper">
+            <img src="assets/youtube-showcase.png" alt="Aadil - YouTube Creator Showcase" class="creator-img" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG clipPath for the hero portrait breakout effect -->
+  <svg width="0" height="0" style="position: absolute; pointer-events: none;">
+    <defs>
+      <clipPath id="avatar-clip" clipPathUnits="objectBoundingBox">
+        <rect x="-0.2" y="-0.5" width="1.4" height="1.0538" />
+        <ellipse cx="0.5" cy="0.5538" rx="0.4772" ry="0.4038" />
+      </clipPath>
+    </defs>
+  </svg>
+
+</body>
+</html>

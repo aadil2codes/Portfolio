@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Powered Kinetic Typography Engine</title>
+  
+  <!-- Tailwind CSS for high-fidelity styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Premium Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* Absolute reset and layout guarantees */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      background-color: #0A0A0A;
+    }
+
+    /* Set up our typography defaults */
+    .font-inter { font-family: 'Inter', sans-serif; }
+    .font-space { font-family: 'Space Grotesk', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+
+    /* Custom scrollbar hiding */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Core Ticker word styles */
+    .ticker-word {
+      color: #ffffff;
+      opacity: 0.15;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: grab;
+    }
+    .ticker-word:active {
+      cursor: grabbing;
+    }
+    .ticker-word.active {
+      opacity: 1;
+      color: #FFFFFF;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Limited orange touch on custom active states */
+    .ticker-word.active.accent-touch {
+      color: #FF7A00;
+      text-shadow: 0 0 24px rgba(255, 122, 0, 0.3);
+    }
+
+    /* Soft UI Glow effects - Themed to match our borders */
+    .glass-panel {
+      background: rgba(21, 21, 21, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid #2A2A2A;
+    }
+    .glass-panel-dark {
+      background: rgba(21, 21, 21, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid #2A2A2A;
+    }
+    
+    /* Range input styling override */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: #2A2A2A;
+      border-radius: 9999px;
+      height: 6px;
+    }
+    
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background: #FF7A00;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 122, 0, 0.4);
+      transition: transform 0.1s ease;
+    }
+    
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body id="body-bg" class="bg-[#0A0A0A] h-screen w-screen flex flex-col justify-center items-center transition-colors duration-700 font-inter text-white">
+
+  <!-- MAIN ANIMATION STACK -->
+  <div class="flex flex-col items-center justify-center w-full select-none text-center">
+    
+    <!-- Header Line 1 -->
+    <div id="line1" class="w-full font-black text-white tracking-tighter leading-[0.95] text-[9vw] sm:text-[7vw] md:text-[6vw] lg:text-[5vw] xl:text-[4.8rem]">
+      KINETIC
+    </div>
+    
+    <!-- Header Line 2 -->
+    <div id="line2" class="w-full font-black text-[#A1A1AA] tracking-tighter leading-[0.95] text-[9vw] sm:text-[7vw] md:text-[6vw] lg:text-[5vw] xl:text-[4.8rem] mt-1">
+      EXPERIENCE
+    </div>
+    
+    <!-- Ticker Horizontal Row -->
+    <div id="ticker-wrapper" class="relative w-screen overflow-hidden py-6 mt-4 cursor-grab active:cursor-grabbing">
+      <div id="ticker-container" class="flex items-center whitespace-nowrap gap-x-8 sm:gap-x-12 md:gap-x-14 px-[50vw]">
+        <!-- Dynamically injected words go here -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Script with Safe Guards for Optional UI Controls -->
+  <script>
+    // --- STATE MANAGEMENT ---
+   let words = [
+  "JavaScript",
+  "C",
+  "Render",
+  "Supabase",
+  "HTML5",
+   "CSS3",
+  "Web Development",
+  "GitHub",
+  "Vercel",
+  "Content Creation",
+  "YouTube",
+  "SEO",
+  "Prompt Engineering",
+];
+
+    let currentIndex = words.length; // Start in the second block
+    let isPlaying = true;
+    let autoPlayTimer = null;
+    let stepDuration = 1200; // ms
+    let easingStyle = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Expo Ease Out
+    let orangeAccentTouch = false; // Add small orange active touch
+    
+    // Physics & Interaction States
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let dragOffset = 0;
+    let playBeforeDrag = true;
+
+    // Core DOM Elements
+    const bodyBg = document.getElementById('body-bg');
+    const tickerWrapper = document.getElementById('ticker-wrapper');
+    const tickerContainer = document.getElementById('ticker-container');
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+
+    // UI Panel Control Elements (Safely optional)
+    const panel = document.getElementById('control-panel');
+    const panelToggleBtn = document.getElementById('panel-toggle-btn');
+    const panelCloseBtn = document.getElementById('panel-close-btn');
+    const quickPlayBtn = document.getElementById('quick-play-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+
+    // Customizer Interactive Elements (Safely optional)
+    const inputLine1 = document.getElementById('input-line1');
+    const inputLine2 = document.getElementById('input-line2');
+    const inputWords = document.getElementById('input-words');
+    const inputSpeed = document.getElementById('input-speed');
+    const speedValLabel = document.getElementById('speed-val');
+    const inputFont = document.getElementById('input-font');
+    const inputBgColor = document.getElementById('input-bg-color');
+    const hexValLabel = document.getElementById('hex-val');
+    const inputTransition = document.getElementById('input-transition');
+    const resetDefaultBtn = document.getElementById('reset-default-btn');
+    const copyEmbedBtn = document.getElementById('copy-embed-btn');
+
+    // Preset configurations
+    const presets = {
+      monochrome: {
+        bg: '#0A0A0A',
+        font: 'font-inter',
+        line1: 'KINETIC',
+        line2: 'EXPERIENCE',
+        words: [...words],
+        speed: 1200,
+        transition: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        orangeTouch: false
+      },
+      orange: {
+        bg: '#0A0A0A',
+        font: 'font-inter',
+        line1: '',
+        line2: 'SKILLS',
+        words: [...words],
+        speed: 1000,
+        transition: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        orangeTouch: true
+      },
+      cyberpunk: {
+        bg: '#0f051d',
+        font: 'font-space',
+        line1: 'SYSTEM',
+        line2: 'OVERLOAD',
+        words: ["Hacking", "Decryption", "Netrun", "Cybernetics", "Nanotech", "AI.Core", "Database", "Mainframe", "Firewall", "Protocol", "Breach", "Proxy"],
+        speed: 800,
+        transition: 'cubic-bezier(0.76, 0, 0.24, 1)',
+        orangeTouch: false
+      },
+      matcha: {
+        bg: '#4a5d4e',
+        font: 'font-playfair',
+        line1: 'Slow',
+        line2: 'Living',
+        words: ["Breathe", "Meditate", "Create", "Unwind", "Sip", "Nature", "Quiet", "Journal", "Grow", "Patience", "Harmony"],
+        speed: 1500,
+        transition: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        orangeTouch: false
+      }
+    };
+
+    // --- ENGINE INITIALIZATION ---
+    function init() {
+      // Setup default text in controls if they exist
+      if (inputWords) inputWords.value = words.join(', ');
+      
+      // Default to Aadil Orange theme
+      applyPreset('orange');
+    }
+
+    // --- RENDER COMPONENT ---
+    function renderTicker() {
+      tickerContainer.innerHTML = '';
+      
+      // Render three concatenated blocks for smooth infinite loop translation
+      const displayWords = [...words, ...words, ...words];
+      
+      displayWords.forEach((word, index) => {
+        const wordEl = document.createElement('div');
+        wordEl.className = 'ticker-word text-[8vw] sm:text-[6.5vw] md:text-[5.5vw] lg:text-[4.5vw] xl:text-[4.2rem] tracking-tighter select-none font-extrabold';
+        wordEl.textContent = `${word.trim()}.`;
+        tickerContainer.appendChild(wordEl);
+      });
+
+      // Keep index centered in the second block
+      currentIndex = words.length;
+      updateTickerPosition(false);
+    }
+
+    // --- REPOSITION CAROUSEL ---
+    function updateTickerPosition(animate = true) {
+      const wordElements = document.querySelectorAll('.ticker-word');
+      if (wordElements.length === 0) return;
+
+      // Unset active class on old active elements
+      wordElements.forEach(el => {
+        el.classList.remove('active');
+        el.classList.remove('accent-touch');
+        el.style.opacity = '0.15';
+      });
+
+      // Clamp target index boundaries
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex >= wordElements.length) currentIndex = wordElements.length - 1;
+
+      const activeEl = wordElements[currentIndex];
+      activeEl.classList.add('active');
+      activeEl.style.opacity = '1';
+      
+      if (orangeAccentTouch) {
+        activeEl.classList.add('accent-touch');
+      }
+
+      // Math: Center of active element aligns perfectly with horizontal center of parent container
+      const wrapperRect = tickerWrapper.getBoundingClientRect();
+      const activeRect = activeEl.getBoundingClientRect();
+      
+      const wrapperCenter = wrapperRect.width / 2;
+      const activeCenterOffset = activeEl.offsetLeft + (activeEl.offsetWidth / 2);
+      
+      const translateX = wrapperCenter - activeCenterOffset;
+
+      if (!animate) {
+        tickerContainer.style.transition = 'none';
+      } else {
+        tickerContainer.style.transition = `transform ${stepDuration * 0.5}ms ${easingStyle}`;
+      }
+
+      tickerContainer.style.transform = `translateX(${translateX}px)`;
+    }
+
+    // --- CORE TICK ENGINE (LOOP LOGIC) ---
+    function nextStep() {
+      currentIndex++;
+      updateTickerPosition(true);
+
+      // Smooth Jumpback Guard: when reaching the end of block 2, snap invisibly to block 1 counterpart
+      if (currentIndex >= words.length * 2) {
+        setTimeout(() => {
+          currentIndex = words.length;
+          updateTickerPosition(false);
+        }, stepDuration * 0.5); // wait for snap translation to end before resetting offset
+      }
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      if (isPlaying) {
+        autoPlayTimer = setInterval(nextStep, stepDuration);
+      }
+    }
+
+    // --- PUBLIC RESTART TRIGGER ---
+    function restartAutoPlayDirect() {
+      startAutoPlay();
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+      }
+    }
+
+    function togglePlayState() {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        if (playIcon) playIcon.classList.add('hidden');
+        if (pauseIcon) pauseIcon.classList.remove('hidden');
+        startAutoPlay();
+      } else {
+        if (playIcon) playIcon.classList.remove('hidden');
+        if (pauseIcon) pauseIcon.classList.add('hidden');
+        stopAutoPlay();
+      }
+    }
+
+    // --- DRAG / TOUCH SWIPE GESTURES ---
+    function startDrag(e) {
+      isDragging = true;
+      startX = getPositionX(e);
+      playBeforeDrag = isPlaying;
+      
+      if (isPlaying) {
+        stopAutoPlay();
+      }
+
+      // Read absolute computed translation at start of drag
+      const style = window.getComputedStyle(tickerContainer);
+      const matrix = new WebKitCSSMatrix(style.transform);
+      currentTranslate = matrix.m41;
+      tickerContainer.style.transition = 'none';
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const currentX = getPositionX(e);
+      dragOffset = currentX - startX;
+      
+      tickerContainer.style.transform = `translateX(${currentTranslate + dragOffset}px)`;
+      
+      // Beautiful tactile visualizer: scale opacity dynamically based on center offset
+      updateWordOpacitiesDuringDrag();
+    }
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+
+      // Analyze which element is now closest to screen center
+      const wordElements = document.querySelectorAll('.ticker-word');
+      const wrapperCenter = tickerWrapper.getBoundingClientRect().width / 2;
+      
+      let closestIndex = currentIndex;
+      let minDistance = Infinity;
+
+      wordElements.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.left + (rect.width / 2);
+        const distance = Math.abs(elCenter - wrapperCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      // Update position index & wrap boundaries to ensure continuous looping state
+      currentIndex = closestIndex;
+      if (currentIndex < words.length) {
+        currentIndex += words.length;
+      } else if (currentIndex >= words.length * 2) {
+        currentIndex -= words.length;
+      }
+
+      updateTickerPosition(true);
+
+      // Restore play state if active before
+      if (playBeforeDrag) {
+        startAutoPlay();
+      }
+    }
+
+    function getPositionX(e) {
+      return e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    }
+
+    function updateWordOpacitiesDuringDrag() {
+      const wordElements = document.querySelectorAll('.ticker-word');
+      const wrapperRect = tickerWrapper.getBoundingClientRect();
+      const wrapperCenter = wrapperRect.left + (wrapperRect.width / 2);
+
+      wordElements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.left + (rect.width / 2);
+        const distance = Math.abs(elCenter - wrapperCenter);
+
+        const activeRange = 250;
+        let scaleRatio = Math.max(0, 1 - (distance / activeRange));
+        let opacity = 0.15 + (0.85 * scaleRatio);
+        el.style.opacity = opacity;
+      });
+    }
+
+    // --- CUSTOMIZER ACTIONS ---
+    function applyPreset(presetKey) {
+      const p = presets[presetKey];
+      if (!p) return;
+
+      // Setup input values to target preset properties
+      if (inputBgColor) inputBgColor.value = p.bg;
+      if (hexValLabel) hexValLabel.textContent = p.bg;
+      bodyBg.style.backgroundColor = p.bg;
+
+      // Typography
+      bodyBg.className = bodyBg.className.replace(/font-\w+/, p.font);
+      if (inputFont) inputFont.value = p.font;
+
+      // Header Texts
+      if (inputLine1) inputLine1.value = p.line1;
+      if (inputLine2) inputLine2.value = p.line2;
+      line1.textContent = p.line1;
+      line2.textContent = p.line2;
+
+      // Words List
+      words = [...p.words];
+      if (inputWords) inputWords.value = words.join(', ');
+
+      // Speed & Transition Type
+      if (inputSpeed) inputSpeed.value = p.speed;
+      stepDuration = p.speed;
+      if (speedValLabel) speedValLabel.textContent = `${(p.speed / 1000).toFixed(1)}s`;
+
+      easingStyle = p.transition;
+      if (inputTransition) inputTransition.value = p.transition;
+
+      // Custom active orange touches
+      orangeAccentTouch = p.orangeTouch;
+
+      // Render fresh layout with preset state
+      renderTicker();
+      startAutoPlay();
+      showToast(`Active Category: ${p.line1 || p.line2}`);
+    }
+
+    // --- EVENT LISTENERS BINDING ---
+    function setupEventListeners() {
+      // Toggle customizer sidebar
+      if (panelToggleBtn && panel) {
+        panelToggleBtn.addEventListener('click', () => {
+          panel.classList.remove('translate-x-full');
+        });
+      }
+      if (panelCloseBtn && panel) {
+        panelCloseBtn.addEventListener('click', () => {
+          panel.classList.add('translate-x-full');
+        });
+      }
+
+      // Primary Quick Play actions
+      if (quickPlayBtn) {
+        quickPlayBtn.addEventListener('click', togglePlayState);
+      }
+
+      // Text Customizer bindings
+      if (inputLine1) {
+        inputLine1.addEventListener('input', (e) => {
+          line1.textContent = e.target.value;
+          updateTickerPosition(false);
+        });
+      }
+      if (inputLine2) {
+        inputLine2.addEventListener('input', (e) => {
+          line2.textContent = e.target.value;
+          updateTickerPosition(false);
+        });
+      }
+
+      // Words Dynamic Parser
+      if (inputWords) {
+        inputWords.addEventListener('change', (e) => {
+          const value = e.target.value;
+          if (!value.trim()) return;
+          words = value.split(',').map(w => w.trim()).filter(w => w.length > 0);
+          renderTicker();
+          startAutoPlay();
+        });
+      }
+
+      // Live Speed controller
+      if (inputSpeed) {
+        inputSpeed.addEventListener('input', (e) => {
+          stepDuration = parseInt(e.target.value);
+          if (speedValLabel) speedValLabel.textContent = `${(stepDuration / 1000).toFixed(1)}s`;
+          startAutoPlay();
+        });
+      }
+
+      // Font Style swapper
+      if (inputFont) {
+        inputFont.addEventListener('change', (e) => {
+          bodyBg.className = bodyBg.className.replace(/font-\w+/, e.target.value);
+          updateTickerPosition(false);
+        });
+      }
+
+      // Canvas background colorpicker
+      if (inputBgColor) {
+        inputBgColor.addEventListener('input', (e) => {
+          bodyBg.style.backgroundColor = e.target.value;
+          if (hexValLabel) hexValLabel.textContent = e.target.value;
+        });
+      }
+
+      // Dynamic Transition curves
+      if (inputTransition) {
+        inputTransition.addEventListener('change', (e) => {
+          easingStyle = e.target.value;
+          updateTickerPosition(false);
+        });
+      }
+
+      // Resize event: Keep perfect center dynamic alignment
+      window.addEventListener('resize', () => {
+        updateTickerPosition(false);
+      });
+
+      // Copy configurations option
+      if (copyEmbedBtn) {
+        copyEmbedBtn.addEventListener('click', () => {
+          const configText = `
+          <!-- Custom Kinetic Typography Setup -->
+          Background: ${inputBgColor.value}
+          Line 1: ${inputLine1.value}
+          Line 2: ${inputLine2.value}
+          Words: ${words.join(', ')}
+          Speed: ${stepDuration}ms
+          Easing: ${easingStyle}
+          Font: ${inputFont.value}
+          `;
+
+          try {
+            const tempArea = document.createElement('textarea');
+            tempArea.value = configText.trim();
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+            showToast('Configuration copied successfully!');
+          } catch (err) {
+            showToast('Failed to copy. Try manual copy.');
+          }
+        });
+      }
+
+      // Reset default settings
+      if (resetDefaultBtn) {
+        resetDefaultBtn.addEventListener('click', () => {
+          applyPreset('orange');
+        });
+      }
+
+      // Bind Carousel dragging physics events
+      tickerWrapper.addEventListener('mousedown', startDrag);
+      tickerWrapper.addEventListener('touchstart', startDrag, { passive: true });
+
+      window.addEventListener('mousemove', drag);
+      window.addEventListener('touchmove', drag, { passive: true });
+
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('touchend', endDrag);
+    }
+
+    // --- CUSTOM UX NOTIFICATION SYSTEM ---
+    function showToast(message) {
+      const toast = document.getElementById('toast-notif');
+      const toastText = document.getElementById('toast-text');
+      if (!toast || !toastText) return;
+      
+      toastText.textContent = message;
+      
+      toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // Start program
+    window.onload = init;
+  </script>
+</body>
+</html>
