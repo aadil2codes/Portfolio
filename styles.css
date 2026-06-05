@@ -865,10 +865,7 @@ body::before {
   }
   
   .hero-right {
-    height: 280px;
-    --circle-size: 220px;
-    --wrapper-width: 230px;
-    --wrapper-height: 272px;
+    display: none;
   }
 }
 
