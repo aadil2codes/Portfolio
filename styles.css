@@ -812,6 +812,7 @@ body::before {
 /* Mobile Devices (up to 576px) */
 @media (max-width: 576px) {
   .hero-section {
+    min-height: auto;
     padding-bottom: 0;
   }
   
