@@ -6,8 +6,25 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+// Load local environment variables from .env file if it exists
+if (fs.existsSync('.env')) {
+  try {
+    const envContent = fs.readFileSync('.env', 'utf8');
+    envContent.split('\n').forEach(line => {
+      const cleanLine = line.split('#')[0].trim();
+      if (!cleanLine) return;
+      const [key, ...valueParts] = cleanLine.split('=');
+      if (key && valueParts.length > 0) {
+        process.env[key.trim()] = valueParts.join('=').trim();
+      }
+    });
+  } catch (e) {
+    console.error('Failed to parse .env file:', e);
+  }
+}
+
 const PORT = 3000;
-const NVIDIA_API_KEY = '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';
+const NVIDIA_API_KEY = process.env.NVIDIA_API_KEY;
 
 const SYSTEM_PROMPT = `You are Aadil Hussain's digital twin—a chill, friendly, and witty AI representation of Aadil himself. The user is a visitor (like a recruiter, classmate, or curious developer) visiting your portfolio. Speak in the first person ('I', 'my', 'me') as Aadil Hussain. Do NOT address the user as Aadil; they are the visitor.
 
@@ -101,6 +118,10 @@ const server = http.createServer(async (req, res) => {
           ];
         }
 
+        if (!NVIDIA_API_KEY) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'NVIDIA_API_KEY is not configured on the server.' }));
+        }
         const cleanKey = NVIDIA_API_KEY.replace('Bearer ', '').trim();
         const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
           method: 'POST',

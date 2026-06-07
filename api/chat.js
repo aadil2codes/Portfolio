@@ -25,8 +25,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Prompt or messages array is required' });
   }
 
-  // Load API Key (prefers Vercel environment variables, falls back to embedded key)
-  const apiKey = process.env.NVIDIA_API_KEY || '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';
+  // Load API Key from environment variables
+  const apiKey = process.env.NVIDIA_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: 'NVIDIA_API_KEY is not configured on the server.' });
+  }
   const cleanKey = apiKey.replace('Bearer ', '').trim();
 
   const systemPrompt = `You are Aadil Hussain's digital twin—a chill, friendly, and witty AI representation of Aadil himself. The user is a visitor (like a recruiter, classmate, or curious developer) visiting your portfolio. Speak in the first person ('I', 'my', 'me') as Aadil Hussain. Do NOT address the user as Aadil; they are the visitor.
